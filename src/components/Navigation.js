@@ -21,11 +21,11 @@ const  Navigation = ()=>{
                 <Navbar.Collapse  id="responsive-navbar-nav">
                     {/* <Nav className="me-10" > */}
                     <Nav className="me-auto" >
-                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/">Home</Nav.Link>
-                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor}  href="/trending">Trending Problems</Nav.Link>
-                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/unicorn">Unicorn Tracker</Nav.Link>
-                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/upload">Upload Problem</Nav.Link>
-                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/register">Signin/Register</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor} href="/">Home</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending Problems</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorn Tracker</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Problem</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor} href="/register">Signin/Register</Nav.Link>
                     
                     </Nav>
 

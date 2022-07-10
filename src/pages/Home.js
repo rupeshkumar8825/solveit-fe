@@ -2,6 +2,7 @@
 // in this i will be showing the ideas recently posted 
 
 import React from "react";
+import Navigation from "../components/Navigation";
 
 // defining the home page for this purpose /
 const Home = ()=>{
@@ -9,6 +10,7 @@ const Home = ()=>{
 
     return (
         <>
+            <Navigation></Navigation>
             <h1>hi this is home page </h1>
         </>
     )

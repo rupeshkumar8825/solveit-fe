@@ -1,5 +1,6 @@
 // this is registration page for solve it 
 import React from "react";
+import Navigation from "../components/Navigation";
 
 // defining the register component 
 const Register = ()=>{
@@ -7,6 +8,7 @@ const Register = ()=>{
     
     return (
         <>
+            <Navigation></Navigation>
             <h1>this is register page for solveit</h1>
         </>
     )
