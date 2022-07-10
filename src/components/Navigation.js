@@ -4,7 +4,10 @@ import { Navbar, Nav,  Container, Button, Form, FormControl} from "react-bootstr
 // import { MDBCol, MDBIcon } from "mdbreact";
 import 'bootstrap/dist/css/bootstrap.css';
 // import { Link } from 'react-router-dom';
-
+const textcolor = {
+    "color" : "white",
+    // "fontWeight" : "light"
+}
 // defining the functional component for this purpose 
 const  Navigation = ()=>{
     console.log("this is navigation menu ");
@@ -13,16 +16,16 @@ const  Navigation = ()=>{
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
-                <Navbar.Brand className="mr-10" href="#home">Solveit</Navbar.Brand>
+                <Navbar.Brand className="mr-10" href="/">Solveit</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse  id="responsive-navbar-nav">
                     {/* <Nav className="me-10" > */}
                     <Nav className="me-auto" >
-                    <Nav.Link className = "ml-5 " href="#features">Home</Nav.Link>
-                    <Nav.Link className = "ml-5 "  href="#pricing">Trending Problems</Nav.Link>
-                    <Nav.Link className = "ml-5 " href="#pricing">Unicorn Tracker</Nav.Link>
-                    <Nav.Link className = "ml-5 " href="#pricing">Upload Problem</Nav.Link>
-                    <Nav.Link className = "ml-5 " href="#pricing">Signin/Register</Nav.Link>
+                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/">Home</Nav.Link>
+                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor}  href="/trending">Trending Problems</Nav.Link>
+                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/unicorn">Unicorn Tracker</Nav.Link>
+                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/upload">Upload Problem</Nav.Link>
+                    <Nav.Link className = "ml-5 " activeClassName= "active" style={textcolor} href="/register">Signin/Register</Nav.Link>
                     
                     </Nav>
 
