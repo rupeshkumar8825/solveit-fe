@@ -25,7 +25,7 @@ const  Navigation = ()=>{
                     <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending Problems</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorn Tracker</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Problem</Nav.Link>
-                    <Nav.Link className = "ml-5 "  style={textcolor} href="/register">Signin/Register</Nav.Link>
+                    <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Register</Nav.Link>
                     
                     </Nav>
 

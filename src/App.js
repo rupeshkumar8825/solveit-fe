@@ -8,8 +8,8 @@ import Home from "./pages/Home";
 import Unicorn from "./pages/Unicorn";
 import Trending from "./pages/Trending";
 import UploadIdea from "./pages/UploadIdea";
-// import Signin from "./pages/Signin";
-import Register from "./pages/Register";
+import Signin from "./pages/Signin";
+// import Register from "./pages/Register";
 
 
 
@@ -23,7 +23,8 @@ function App() {
 				<Route path="/trending" element={<Trending></Trending>}></Route>
 				<Route path="/upload" element={<UploadIdea></UploadIdea>}></Route>
 				<Route path="/unicorn" element={<Unicorn></Unicorn>}></Route>
-				<Route path="/register" element={<Register></Register>}></Route>
+				{/* <Route path="/register" element={<Register></Register>}></Route> */}
+				<Route path="/signin" element={<Signin></Signin>}></Route>
 				{/* <Route path="/" element={Home}></Route> */}
 			</Routes>
 		</BrowserRouter>
