@@ -22,7 +22,7 @@ const  Navigation = ()=>{
                     {/* <Nav className="me-10" > */}
                     <Nav className="me-auto" >
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/">Home</Nav.Link>
-                    <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending</Nav.Link>
+                    {/* <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending</Nav.Link> */}
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorns</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Idea</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/SignUp</Nav.Link>

@@ -20,12 +20,7 @@ const Post = ()=>{
                     </div>
                     {/* <div className="container" id="seedetails" > */}
                     <button type="button" class="btn btn-primary">See Details</button>
-                    {/* </div> */}
-                    {/* <i class="bi bi-person"></i> */}
-
-                    {/* </div> */}
-                    {/* <div className="container"> */}
-                    {/* </div> */}
+                   
 
                 </div>
                 
@@ -41,12 +36,12 @@ const Post = ()=>{
 
                 </div>
             {/* <div className="card" style="width: 18rem;"> */}
-            <div className="container">
-                <img src="https://source.unsplash.com/random/?city,night" className="card-img-top" alt="Image"/>
+                <div className="container">
+                    <img src="https://source.unsplash.com/random/?city,night" className="card-img-top" alt="Image"/>
 
-            </div>
+                </div>
                 <div className="card-body" id="footer">
-                    <div className="container d-flex justify-content-space" id="Upvote">
+                    <div className="container d-flex justify-content-space" id="upvote">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
                         </svg>
@@ -82,9 +77,9 @@ const Post = ()=>{
                     </div>
                     
 
-                    {/* <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                        {/* <h5 className="card-title">Card title</h5>
+                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" className="btn btn-primary">Go somewhere</a> */}
                 </div>
             </div>
         </>
