@@ -6,7 +6,8 @@
 } */
 
 body{
-    background-color: #dff7f7;
+    /* background-color: #a9dfe9; */
+    background-color: #dae0e6;
 }
 
 .overlay {
@@ -23,7 +24,7 @@ body{
     border-radius: 0.5rem;
   }
 
-.card {
+#trendingcard {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -56,6 +57,10 @@ body{
 
 }
 
+.card-img-top{
+    height: 400px;
+}
+
 
 .container2
 {
@@ -70,3 +75,78 @@ body{
 /* .card-title{
     z-index: 10;
 } */
+
+.trendingHeading 
+{
+    /* border: 2px solid black; */
+    padding-left: 2%;
+    padding-top: 1%;
+    margin-top: 3%;
+    /* font-weight: lighter; */
+}
+
+.trendingHeading h4{
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.container svg{
+    width: 30px;
+    height: 30px;
+}
+
+
+#post{
+    border: 2px solid black;
+}
+
+
+.row{
+    width: 80%;
+    margin-bottom: 5%;
+}
+
+#profile{
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 00px !important;
+    justify-content: space-between;
+    align-items: center;
+    /* justify-content: sp ; */
+    /* align-items: center; */
+}
+
+#profile .container{
+    display: inline-block;
+    width: 50%;
+    margin: 00px;
+}
+
+#profile p {
+    margin-bottom: 0%;
+    font-size: 0.8rem;
+    margin-left: 00px;
+}
+
+#profile h6{
+    font-size: 0.7rem;
+}
+
+#idea{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#footer{
+    display: flex;
+    flex-direction: row;
+}
+
+
+@media only screen and (max-width: 790px) {
+    .row{
+        width: 100%;
+    }
+  }

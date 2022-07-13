@@ -8,7 +8,7 @@ const TrendingCard = (props)=>{
         <>
             {/* <div className="col-12 col-sm-8 col-md-6 col-lg-4"> */}
             
-                <div className="card">
+                <div className="card" id="trendingcard">
                     <img className="card-img" src={props.imgsrc} alt="Idea"/>
                     <div className="card-img-overlay text-white d-flex flex-column justify-content-center overlay" >
                     {/* <h4 className="card-title">Bologna</h4> */}
