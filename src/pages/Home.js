@@ -3,7 +3,7 @@
 
 import React from "react";
 import Navigation from "../components/Navigation";
-// import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
 
 
 const style1 = {
@@ -18,7 +18,7 @@ const Home = ()=>{
         <>
             <Navigation></Navigation>
             {/* <h1>hi this is home page </h1> */}
-            {/* <MDBCard style={{ maxWidth: '22rem' }}>
+            <MDBCard style={{ maxWidth: '22rem' }}>
                 <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
                     <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp' fluid alt='...' />
                     <a>
@@ -32,8 +32,8 @@ const Home = ()=>{
                     </MDBCardText>
                     <MDBBtn href='#'>Button</MDBBtn>
                     </MDBCardBody>
-                </MDBCard> */}
-            <div className="container">
+                </MDBCard>
+            {/* <div className="container">
                 <div className="row">
                     <div className="col-sm">
                         One of three columns
@@ -48,12 +48,12 @@ const Home = ()=>{
                                 <a href="#" className="btn btn-primary">Read More</a>
                             </div>
                         </div> */}
-                    </div>
-                    <div className="col-sm">
+                    {/* </div> */}
+                    {/* <div className="col-sm">
                         One of three columns
                     </div>
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
             
         </>
     )
