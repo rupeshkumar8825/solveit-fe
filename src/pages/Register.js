@@ -2,35 +2,131 @@
 import React from "react";
 import Navigation from "../components/Navigation";
 import 'bootstrap/dist/css/bootstrap.css';
+
+import { useState } from "react";
 // defining the register component 
+
+
+// DEFINING THE STYLE FOR THIS CONTAINER ELEMENT FOR MAKING IT TO APPEAR IN MIDDLE 
+const container1 = {
+    "marginTop" : "10%",
+    "width" : "50%"
+};
+
 const Register = ()=>{
     console.log("this is register page");
+
+    // DEFINING THE STATES 
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmpassword, setConfirmpassword] = useState("");
+
+
+    // DEFINING THE DIFFERENT HANDDLERS FOR THIS PURPOWE 
+    const handle_on_change_firstname = (e)=>{
+        setFirstname(e.target.value);
+    }
+
+    const handle_on_change_lastname = (e)=>{
+        setLastname(e.target.value);
+    }
+
+    const handle_on_change_email = (e)=>{
+        setEmail(e.target.value);
+    }
+
+    const handle_on_change_phone_number = (e)=>{
+        setPhone(e.target.value);
+    }
+
+    const handle_on_change_password = (e)=>{
+        setPassword(e.target.value);
+    }
+
+    const handle_on_change_confirm_password = (e)=>{
+        setConfirmpassword(e.target.value);
+    }
+
+    // DEFINIGNG THE HANDLERS FOR HANDLING THE ON SUBMIT EVENT 
+    const handle_on_submit = ()=>{
+        console.log('The submission is successfully Done. From here the ')
+    }
     
     return (
         <>
             
             {/* <Navigation></Navigation> */}
-            <div className="container">
+            <div className="container" style={container1}>
 
                 <form>
-                    <h3>Sign In</h3>
+                    <h3>Register Here</h3>
                     <div className="mb-3">
-                    <label>Email address</label>
+                    <label>First Name</label>
+                    <input
+                        type="firstname"
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={handle_on_change_firstname}
+                    />
+                    
+                    </div>
+
+                    <div className="mb-3">
+                    <label>Last Name</label>
+                    <input
+                        type="firstname"
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={handle_on_change_lastname}
+                    />
+                    
+                    </div>
+
+                    <div className="mb-3">
+                    <label>Email</label> 
                     <input
                         type="email"
                         className="form-control"
-                        placeholder="Enter email"
+                        placeholder="Enter password"
+                        onChange={handle_on_change_email}
                     />
                     </div>
+
+                    <div className="mb-3">
+                    <label>Phone Number</label> 
+                    <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter password"
+                        onChange={handle_on_change_phone_number}
+                    />
+                    </div>
+
+
                     <div className="mb-3">
                     <label>Password</label> 
                     <input
                         type="password"
                         className="form-control"
                         placeholder="Enter password"
+                        onChange={handle_on_change_password}
                     />
                     </div>
+
                     <div className="mb-3">
+                    <label>Confirm Password</label> 
+                    <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Enter password"
+                        onChange={handle_on_change_confirm_password}
+                    />
+                    </div>
+
+                    {/* <div className="mb-3">
                     <div className="custom-control custom-checkbox">
                         <input
                         type="checkbox"
@@ -41,14 +137,14 @@ const Register = ()=>{
                         Remember me
                         </label>
                     </div>
-                    </div>
+                    </div> */}
                     <div className="d-grid">
-                    <button type="submit" className="btn btn-primary">
+                    <button  className="btn btn-primary" onClick={handle_on_submit}>
                         Submit
                     </button>
                     </div>
                     <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
+                    Signin <a href="/signin">Signin</a>
                     </p>
                 </form>
             </div>

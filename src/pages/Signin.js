@@ -85,7 +85,7 @@ const Signin = ()=>{
                     </button>
                     </div>
                     <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
+                    Not Registered <a href="/register">Registere Here</a>
                     </p>
                 </form>
             </div>
