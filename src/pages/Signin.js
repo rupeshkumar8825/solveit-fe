@@ -2,6 +2,11 @@
 import React from "react";
 import Navigation from "../components/Navigation";
 import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+
+import { isLoggedInAction } from "../redux/action/loggedin";
+
 
 // DEFINING THE STYLE FOR THIS CONTAINER ELEMENT FOR MAKING IT TO APPEAR IN MIDDLE 
 const container1 = {
@@ -16,7 +21,8 @@ const Signin = ()=>{
     // DEFINING THE STATES FOR THIS PURPOSE 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    // const isLoggedIn = 
+    const dispatch = useDispatch();
     // DEFINING THE HANDLERS FOR THIS PURPOSE 
     const handle_email_change = (e)=>{
         // console.log(e.target.value);
@@ -28,18 +34,40 @@ const Signin = ()=>{
         setPassword(e.target.value);
     }
 
-    const handle_on_submit = (e)=>{
-        e.preventDefault();
+    const handle_on_submit = async ()=>{
+        // e.preventDefault();
         console.log("the email is ", email);
         console.log("the password is ", password);
 
-        console.log("From here the backend will handle the signin part\n");
+        // DEFINING THE DATA TO BE SENT TO BACKEND FOR SIGNIN PURPOSE 
+        const data = {
+            email : email,
+            password : password
+        }
+        const URL = "http://localhost:8080/signin";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*"
+        }
+
+
+        const response = await axios.post(URL, data, headers);
+        console.log("The response from the backend is as follows ");
+        response = response.data;
+        if(response === 1)
+        {
+            dispatch(isLoggedInAction(true));
+            history.push("/");
+        }
+
+        // console.log("From here the backend will handle the signin part\n");
 
         // say everything went fine 
         return;
         
     }
 
+    // JUST AFTER RENDERING THIS 
 
 
     return (
@@ -47,7 +75,7 @@ const Signin = ()=>{
             {/* <Navigation></Navigation> */}
             <div className="container" style={container1}>
 
-                <form>
+                <div>
                     <h3>Sign In</h3>
                     <div className="mb-3">
                     <label>Email address</label>
@@ -87,7 +115,7 @@ const Signin = ()=>{
                     <p className="forgot-password text-right">
                     Not Registered <a href="/register">Registere Here</a>
                     </p>
-                </form>
+                </div>
             </div>
 
         </>

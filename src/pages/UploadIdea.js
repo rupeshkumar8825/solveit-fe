@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Navigation from "../components/Navigation";
 import "../css/upload.css"
+import axios from "axios";
 
 
 const UploadIdea = ()=>{
@@ -67,7 +68,7 @@ const UploadIdea = ()=>{
 
 
     // DEFINING THE EVENT HANDLERS FOR THIS APPLICATION 
-    const handle_on_upload = ()=>{
+    const handle_on_upload = async()=>{
         console.log("The user has submitted the idea.");
         // DEFINING THE DATA TO BE SENT TO THE BACKEND 
         const data = {
@@ -81,7 +82,13 @@ const UploadIdea = ()=>{
             ideafile : ideafile, 
             thumbnail : thumbnail
         };
+        
+        const URL = "http://localhost:8080/upload";
 
+        // USING THE POST REQUEST TO SEND THE DATA TO THE BACKEND 
+        const response = await axios.post(URL, data);
+        console.log("The response from the backend is as follows \n");
+        console.log(response);
         console.log("from here the backend will handle the idea  submission\n");
         
         // SAY EVERYTHING WENT FINE 

@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import 'bootstrap/dist/css/bootstrap.css';
 
 import { useState } from "react";
+import axios from "axios";
 // defining the register component 
 
 
@@ -51,8 +52,27 @@ const Register = ()=>{
     }
 
     // DEFINIGNG THE HANDLERS FOR HANDLING THE ON SUBMIT EVENT 
-    const handle_on_submit = ()=>{
-        console.log('The submission is successfully Done. From here the ')
+    const handle_on_submit = async ()=>{
+        
+        // DEFINING THE DATA TO BE SENT TO THE BACKEND 
+        const data = {
+            firstname : firstname,
+            lastname : lastname,
+            email : email,
+            phone : phone,
+            password : password, 
+            confirmpassword : confirmpassword
+        }
+        const URL = "http://localhost:8080/register";
+
+        // SENDING THE POST REQUEST TO THE BACKEND FOR THIS PURPOSE 
+        const response = await axios.post(URL, data);
+        console.log("The response from the backend is as follows\n");
+        console.log(response);
+
+        // SAY EVERYTHING WENT FINE 
+        return
+        // console.log('The submission is successfully Done. From here the ')
     }
     
     return (

@@ -12,6 +12,7 @@ import Category from "./Category";
 
 
 import "../../css/Home.css"
+import { useSelector } from "react-redux";
 
 const style1 = {
     "width" : "18rem"
@@ -21,6 +22,9 @@ const style1 = {
 // defining the home page for this purpose /
 const Home = ()=>{
     console.log("this is home page");
+    const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
+    // console.log("The current status of user is ", isLoggedIn.IsLoggedInReducer.isLoggedIn);
+    console.log("The current status of user is ", isLoggedIn);
 
     return (
         <>
