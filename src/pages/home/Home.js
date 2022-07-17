@@ -29,38 +29,40 @@ const Home = ()=>{
     const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
     // console.log("The current status of user is ", isLoggedIn.IsLoggedInReducer.isLoggedIn);
     console.log("The current status of user is ", isLoggedIn);
-    const nav = useNavigate();
+    // const nav = useNavigate();
 
-    const getAuthentication = async ()=>{
-        const URL = "http://localhost:8080/";
-        const headers = {
-            'Content-Type' : 'application/json',
-            "Access-Control-Allow-Origin" : "*"
-        }
-		const response = await axios.get(URL, headers);
-		console.log(response.data)
-		if(response.data.status == 200)
-		{
-			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-			console.log("The user is already loggedin\n");
-		}
-		else if(response.data.status == 401)
-		{
-			// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
-			// navigate('/signin');
-			console.log("The request status if ", 401);
-			// <Redirect to="/signin"/>
-            nav('/signin')
-			// browserHistory.push("/signin")
+    // const getAuthentication = async ()=>{
+    //     const URL = "http://127.0.0.1:8000/";
+    //     const headers = {
+    //         'Content-Type' : 'application/json',
+    //         "Access-Control-Allow-Origin" : "*",
+    //         "withCredentials": true
 
-		}
-    }
-    useEffect(() => {
-		// WE HAVE TO MAKE THE AXIOS POST REQUEST 
-        getAuthentication();
+    //     }
+	// 	const response = await axios.get(URL, headers);
+	// 	console.log(response.data)
+	// 	if(response.data.status == 200)
+	// 	{
+	// 		// THIS MEANS THAT USER IS ALREADY LOGGED IN 
+	// 		console.log("The user is already loggedin\n");
+	// 	}
+	// 	else if(response.data.status == 401)
+	// 	{
+	// 		// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
+	// 		// navigate('/signin');
+	// 		console.log("The request status if ", 401);
+	// 		// <Redirect to="/signin"/>
+    //         nav('/signin')
+	// 		// browserHistory.push("/signin")
+
+	// 	}
+    // }
+    // useEffect(() => {
+	// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 
+    //     getAuthentication();
 
 		
-	}, []);
+	// }, []);
 
 
     return (

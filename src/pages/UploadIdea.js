@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Navigation from "../components/Navigation";
 import "../css/upload.css"
 import axios from "axios";
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UploadIdea = ()=>{
     console.log("here you can upload the problem idea\n");
@@ -18,6 +19,42 @@ const UploadIdea = ()=>{
     const [description, setDescription] = useState("");
     const [ideafile, setIdeafile] = useState("");
     const [thumbnail, setThumbnail] = useState("");
+
+
+    const nav = useNavigate();
+
+    const getAuthentication = async ()=>{
+        const URL = "http://127.0.0.1:8000/upload";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials":true
+        }
+		const response = await axios.get(URL, headers);
+		console.log(response.data)
+		if(response.data.status == 200)
+		{
+			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
+			console.log("The user is already loggedin\n");
+		}
+		else if(response.data.status == 401)
+		{
+			// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
+			// navigate('/signin');
+			console.log("The request status if ", 401);
+			// <Redirect to="/signin"/>
+            nav('/signin')
+			// browserHistory.push("/signin")
+
+		}
+    }
+
+    // CALLING THE USE EFFECT HOOK FOR AUTHENTICATION 
+    useEffect(() => {
+        console.log("The upload idea component rendered")
+        getAuthentication()
+        
+    }, []);
 
 
     // DEFINING THE ON CHANGE HANDLERS FOR THIS PURPOSE 
@@ -83,10 +120,15 @@ const UploadIdea = ()=>{
             thumbnail : thumbnail
         };
         
-        const URL = "http://localhost:8080/upload";
+        const URL = "http://127.0.0.1:8000/upload";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+        }
 
         // USING THE POST REQUEST TO SEND THE DATA TO THE BACKEND 
-        const response = await axios.post(URL, data);
+        const response = await axios.post(URL, data, headers);
         console.log("The response from the backend is as follows \n");
         console.log(response);
         console.log("from here the backend will handle the idea  submission\n");

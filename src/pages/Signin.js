@@ -4,9 +4,9 @@ import Navigation from "../components/Navigation";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { isLoggedInAction } from "../redux/action/loggedin";
-import { Navigate } from "react-router-dom";
 
 // DEFINING THE STYLE FOR THIS CONTAINER ELEMENT FOR MAKING IT TO APPEAR IN MIDDLE 
 const container1 = {
@@ -24,6 +24,7 @@ const Signin = ()=>{
     // const isLoggedIn = 
     const dispatch = useDispatch();
     // DEFINING THE HANDLERS FOR THIS PURPOSE 
+    const nav = useNavigate();
     const handle_email_change = (e)=>{
         // console.log(e.target.value);
         setEmail(e.target.value)
@@ -44,21 +45,33 @@ const Signin = ()=>{
             email : email,
             password : password
         }
-        const URL = "http://localhost:8080/signin";
+        const URL = "http://127.0.0.1:8000/signin";
         const headers = {
             'Content-Type' : 'application/json',
-            "Access-Control-Allow-Origin" : "*"
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
         }
 
 
         let response = await axios.post(URL, data, headers);
         console.log("The response from the backend is as follows ");
         response = response.data;
-        if(response === 1)
+        console.log(response);
+        console.log("done");
+        if(response.status == 200)
         {
-            dispatch(isLoggedInAction(true));
-            // history.push("/");
+            nav("/");
         }
+        else
+        {
+            console.log("The user is not authenticated completely\n");
+            nav("/signin");
+        }
+        // if(response === 1)
+        // {
+        //     dispatch(isLoggedInAction(true));
+        //     // history.push("/");
+        // }
 
         // console.log("From here the backend will handle the signin part\n");
 

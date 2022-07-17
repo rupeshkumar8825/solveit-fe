@@ -63,7 +63,7 @@ const Register = ()=>{
             password : password, 
             confirmpassword : confirmpassword
         }
-        const URL = "http://localhost:8080/register";
+        const URL = "http://127.0.0.1:8000/register";
 
         // SENDING THE POST REQUEST TO THE BACKEND FOR THIS PURPOSE 
         const response = await axios.post(URL, data);
