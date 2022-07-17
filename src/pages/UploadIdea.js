@@ -39,7 +39,8 @@ const UploadIdea = ()=>{
 		{
             console.log("The current user is as follows\n");
             console.log(response.data.curr_user);
-            const user_name = response.data.curr_user.firstname + response.data.curr_user.lastname
+            // const user_name = response.data.curr_user.firstname + response.data.curr_user.lastname
+            const user_name = response.data.curr_user.username;
             dispatch(userNameAction(user_name));
 			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
 			console.log("The user is already loggedin\n");

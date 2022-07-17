@@ -18,6 +18,7 @@ const Register = ()=>{
     console.log("this is register page");
 
     // DEFINING THE STATES 
+    const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
@@ -51,11 +52,17 @@ const Register = ()=>{
         setConfirmpassword(e.target.value);
     }
 
+
+    const handle_on_change_username = (e)=>{
+        setUsername(e.target.value);
+    }
+
     // DEFINIGNG THE HANDLERS FOR HANDLING THE ON SUBMIT EVENT 
     const handle_on_submit = async ()=>{
         
         // DEFINING THE DATA TO BE SENT TO THE BACKEND 
         const data = {
+            username : username,
             firstname : firstname,
             lastname : lastname,
             email : email,
@@ -84,11 +91,22 @@ const Register = ()=>{
                 <form>
                     <h3>Register Here</h3>
                     <div className="mb-3">
+                    <label>Username</label>
+                    <input
+                        type="username"
+                        className="form-control"
+                        placeholder="Enter Username"
+                        onChange={handle_on_change_username}
+                    />
+                    
+                    </div>
+
+                    <div className="mb-3">
                     <label>First Name</label>
                     <input
                         type="firstname"
                         className="form-control"
-                        placeholder="Enter email"
+                        placeholder="Enter First name"
                         onChange={handle_on_change_firstname}
                     />
                     
@@ -99,7 +117,7 @@ const Register = ()=>{
                     <input
                         type="firstname"
                         className="form-control"
-                        placeholder="Enter email"
+                        placeholder="Enter Last name"
                         onChange={handle_on_change_lastname}
                     />
                     
@@ -110,7 +128,7 @@ const Register = ()=>{
                     <input
                         type="email"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder="Enter email"
                         onChange={handle_on_change_email}
                     />
                     </div>
@@ -118,9 +136,9 @@ const Register = ()=>{
                     <div className="mb-3">
                     <label>Phone Number</label> 
                     <input
-                        type="email"
+                        type="number"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder="Enter phonenumber"
                         onChange={handle_on_change_phone_number}
                     />
                     </div>
@@ -141,7 +159,7 @@ const Register = ()=>{
                     <input
                         type="password"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder="Enter confirm password"
                         onChange={handle_on_change_confirm_password}
                     />
                     </div>

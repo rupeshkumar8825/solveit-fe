@@ -63,7 +63,8 @@ const Signin = ()=>{
         {
             const curr_user = response.data.curr_user;
             // STORE THE USERNAME HERE 
-            const user_name = curr_user.firstname + curr_user.lastname;
+            // const user_name = curr_user.firstname + curr_user.lastname;
+            const user_name = curr_user.username;
             // HERE WE HAVE TO DISPATCH THE ACTION TO STORE THE VALUE OF CURRENT USER 
             dispatch(userNameAction(user_name));
 

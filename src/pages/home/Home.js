@@ -54,7 +54,8 @@ const Home = ()=>{
 			console.log("The user is already loggedin\n");
             // SO I CAN SET THE USERNAME 
             console.log(response.data.curr_user);
-            let user_name = response.data.curr_user.firstname + response.data.curr_user.lastname;
+            // let user_name = response.data.curr_user.firstname + response.data.curr_user.lastname;
+            let user_name = response.data.curr_user.username;
             dispatch(userNameAction(user_name));
             // username = user_name;
 		}
