@@ -6,7 +6,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { isLoggedInAction } from "../redux/action/loggedin";
-
+import { Navigate } from "react-router-dom";
 
 // DEFINING THE STYLE FOR THIS CONTAINER ELEMENT FOR MAKING IT TO APPEAR IN MIDDLE 
 const container1 = {
@@ -17,7 +17,7 @@ const container1 = {
 
 const Signin = ()=>{
     // console.log("this is signin page");
-
+    // const history = useHistory();
     // DEFINING THE STATES FOR THIS PURPOSE 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ const Signin = ()=>{
         console.log("the password is ", password);
 
         // DEFINING THE DATA TO BE SENT TO BACKEND FOR SIGNIN PURPOSE 
-        const data = {
+        const data = {  
             email : email,
             password : password
         }
@@ -51,13 +51,13 @@ const Signin = ()=>{
         }
 
 
-        const response = await axios.post(URL, data, headers);
+        let response = await axios.post(URL, data, headers);
         console.log("The response from the backend is as follows ");
         response = response.data;
         if(response === 1)
         {
             dispatch(isLoggedInAction(true));
-            history.push("/");
+            // history.push("/");
         }
 
         // console.log("From here the backend will handle the signin part\n");
