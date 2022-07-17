@@ -56,7 +56,7 @@ const Home = ()=>{
             console.log(response.data.curr_user);
             let user_name = response.data.curr_user.firstname + response.data.curr_user.lastname;
             dispatch(userNameAction(user_name));
-            username = user_name;
+            // username = user_name;
 		}
 		else if(response.data.status == 401)
 		{
@@ -79,7 +79,7 @@ const Home = ()=>{
 
     return (
         <>
-            <Navigation user_name = {username}></Navigation>
+            {/* <Navigation user_name = {username}></Navigation> */}
             <div className="container">
                 <div className="trendingHeading">
                     <h4>Trending Ideas</h4>

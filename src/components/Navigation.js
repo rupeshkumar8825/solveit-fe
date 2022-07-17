@@ -13,13 +13,9 @@ const textcolor = {
 // defining the functional component for this purpose 
 const  Navigation = (props)=>{
     console.log("this is navigation menu ");
-    let user_name = useSelector((state) => state.userNameReducer.username);
-    console.log("the current user is", user_name);
-    if(!user_name)
-    {
-        user_name = props.user_name;
-    }
-
+    // let user_name = useSelector((state) => state.userNameReducer.username);
+    // console.log("the current user is", user_name);
+    let user_name = props.user_name;
 
 
     return (

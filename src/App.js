@@ -1,9 +1,9 @@
 // import logo from './logo.svg';
 // import './App.css';
-import Navigation from "./components/Navigation";
+// import Navigation from "./components/Navigation";
 // import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap/dist/react-bootstrap.min.js";
-import {BrowserRouter, Routes, Route, unstable_HistoryRouter} from "react-router-dom"
+import {BrowserRouter, Routes, Route, Switch} from "react-router-dom"
 // import Home from "./pages/Home";
 import Home from "./pages/home/Home";
 import Unicorn from "./pages/Unicorn";
@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import isLoggedInReducer from "./redux/reducer/isLoggedInReducer";
 import { isLoggedInAction } from "./redux/action/loggedin";
 import axios from "axios";
+import Navigation from "./components/Navigation";
 
 
 
@@ -30,6 +31,8 @@ function App() {
 	// const isLoggedin = useSelector((state)=> state.isLoggedInReducer);
     const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
 	console.log(isLoggedIn)
+	const username = useSelector((state)=> state.userNameReducer.username);
+
 	
 
 	// useEffect(async () => {
@@ -60,19 +63,20 @@ function App() {
 
 	return (
 		<>
-			{/* setting up the routes for solveit without the need of nodejs  */}
 			<BrowserRouter>
+				<Navigation user_name = {username}></Navigation>
+			{/* setting up the routes for solveit without the need of nodejs  */}
 				<Routes>
 					<Route exact path="/" element={<Home></Home>}></Route>
 					{/* <Route path="/trending" element={<Trending></Trending>}></Route> */}
 					<Route path="/upload" element={<UploadIdea></UploadIdea>}></Route>
-					<Route path="/unicorn" element={<Unicorn></Unicorn>}></Route>
 					<Route path="/register" element={<Register></Register>}></Route>
+					<Route path="/unicorn" element={<Unicorn></Unicorn>}></Route>
 					<Route path="/signin" element={<Signin></Signin>}></Route>
 					{/* <Route path="/" element={Home}></Route> */}
 				</Routes>
-			</BrowserRouter>
 			{/* <Navigation></Navigation> */}
+			</BrowserRouter>
 			{/* <h1>hi this is home page of solveit </h1> */}
 		</>
   );
