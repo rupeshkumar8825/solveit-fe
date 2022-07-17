@@ -5,6 +5,8 @@ import "../css/upload.css"
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userNameAction } from "../redux/action/userNameAction";
 
 const UploadIdea = ()=>{
     console.log("here you can upload the problem idea\n");
@@ -20,7 +22,8 @@ const UploadIdea = ()=>{
     const [ideafile, setIdeafile] = useState("");
     const [thumbnail, setThumbnail] = useState("");
 
-
+    const username = useSelector((state)=> state.userNameReducer.username);
+    const dispatch = useDispatch();
     const nav = useNavigate();
 
     const getAuthentication = async ()=>{
@@ -34,11 +37,19 @@ const UploadIdea = ()=>{
 		console.log(response.data)
 		if(response.data.status == 200)
 		{
+            console.log("The current user is as follows\n");
+            console.log(response.data.curr_user);
+            const user_name = response.data.curr_user.firstname + response.data.curr_user.lastname
+            dispatch(userNameAction(user_name));
 			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
 			console.log("The user is already loggedin\n");
 		}
 		else if(response.data.status == 401)
 		{
+
+            // HERE THE AUTH IS FINISHED OR THE TOKEN VALIDITY IS FINISHED 
+            // HERE WE HAVE TO SET THE CURRENT USER AS NULL 
+
 			// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
 			// navigate('/signin');
 			console.log("The request status if ", 401);
@@ -139,7 +150,7 @@ const UploadIdea = ()=>{
 
     return (
         <>
-            <Navigation></Navigation>
+            <Navigation user_name = {username}></Navigation>
             {/* <h1>here you can upload the problems or post the problems </h1> */}
             <div className="container" id="uploadidea">
                 <div className="container" id="heading">

@@ -17,6 +17,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import "../../css/Home.css"
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userNameAction } from "../../redux/action/userNameAction";
+
 
 const style1 = {
     "width" : "18rem"
@@ -27,47 +30,56 @@ const style1 = {
 const Home = ()=>{
     console.log("this is home page");
     const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
+    const username = useSelector((state)=> state.userNameReducer.username);
     // console.log("The current status of user is ", isLoggedIn.IsLoggedInReducer.isLoggedIn);
     console.log("The current status of user is ", isLoggedIn);
     // const nav = useNavigate();
 
-    // const getAuthentication = async ()=>{
-    //     const URL = "http://127.0.0.1:8000/";
-    //     const headers = {
-    //         'Content-Type' : 'application/json',
-    //         "Access-Control-Allow-Origin" : "*",
-    //         "withCredentials": true
 
-    //     }
-	// 	const response = await axios.get(URL, headers);
-	// 	console.log(response.data)
-	// 	if(response.data.status == 200)
-	// 	{
-	// 		// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-	// 		console.log("The user is already loggedin\n");
-	// 	}
-	// 	else if(response.data.status == 401)
-	// 	{
-	// 		// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
-	// 		// navigate('/signin');
-	// 		console.log("The request status if ", 401);
-	// 		// <Redirect to="/signin"/>
-    //         nav('/signin')
-	// 		// browserHistory.push("/signin")
+    const dispatch = useDispatch();
 
-	// 	}
-    // }
-    // useEffect(() => {
-	// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 
-    //     getAuthentication();
+    const getAuthentication = async ()=>{
+        const URL = "http://127.0.0.1:8000/";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+
+        }
+		const response = await axios.get(URL, headers);
+		console.log(response.data)
+		if(response.data.status == 200)
+		{
+			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
+			console.log("The user is already loggedin\n");
+            // SO I CAN SET THE USERNAME 
+            console.log(response.data.curr_user);
+            let user_name = response.data.curr_user.firstname + response.data.curr_user.lastname;
+            dispatch(userNameAction(user_name));
+            username = user_name;
+		}
+		else if(response.data.status == 401)
+		{
+			// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
+            console.log("No user exists. And this user is not signed in yet");
+			// navigate('/signin');
+			// <Redirect to="/signin"/>
+            // nav('/signin')
+			// browserHistory.push("/signin")
+
+		}
+    }
+    useEffect(() => {
+		// WE HAVE TO MAKE THE AXIOS POST REQUEST 
+        getAuthentication();
 
 		
-	// }, []);
+	}, []);
 
 
     return (
         <>
-            <Navigation></Navigation>
+            <Navigation user_name = {username}></Navigation>
             <div className="container">
                 <div className="trendingHeading">
                     <h4>Trending Ideas</h4>

@@ -3,14 +3,24 @@ import React from "react";
 import { Navbar, Nav,  Container, Button, Form, FormControl} from "react-bootstrap";
 // import { MDBCol, MDBIcon } from "mdbreact";
 import 'bootstrap/dist/css/bootstrap.css';
+import { useSelector } from "react-redux";
+
 // import { Link } from 'react-router-dom';
 const textcolor = {
     "color" : "white",
     // "fontWeight" : "light"
 }
 // defining the functional component for this purpose 
-const  Navigation = ()=>{
+const  Navigation = (props)=>{
     console.log("this is navigation menu ");
+    let user_name = useSelector((state) => state.userNameReducer.username);
+    console.log("the current user is", user_name);
+    if(!user_name)
+    {
+        user_name = props.user_name;
+    }
+
+
 
     return (
         <>
@@ -25,8 +35,9 @@ const  Navigation = ()=>{
                     {/* <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending</Nav.Link> */}
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorns</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Idea</Nav.Link>
-                    <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/SignUp</Nav.Link>
-                    
+                    {user_name? <Nav.Link className = "ml-5 "  style={textcolor} href="/profile">{user_name}</Nav.Link> : <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Signup</Nav.Link> 
+                    }
+
                     </Nav>
 
                     <Nav>

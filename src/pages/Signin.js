@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { isLoggedInAction } from "../redux/action/loggedin";
+import { userNameAction } from "../redux/action/userNameAction";
 
 // DEFINING THE STYLE FOR THIS CONTAINER ELEMENT FOR MAKING IT TO APPEAR IN MIDDLE 
 const container1 = {
@@ -55,11 +56,18 @@ const Signin = ()=>{
 
         let response = await axios.post(URL, data, headers);
         console.log("The response from the backend is as follows ");
-        response = response.data;
+        // response = response.data;
         console.log(response);
         console.log("done");
-        if(response.status == 200)
+        if(response.data.status == 200)
         {
+            const curr_user = response.data.curr_user;
+            // STORE THE USERNAME HERE 
+            const user_name = curr_user.firstname + curr_user.lastname;
+            // HERE WE HAVE TO DISPATCH THE ACTION TO STORE THE VALUE OF CURRENT USER 
+            dispatch(userNameAction(user_name));
+
+
             nav("/");
         }
         else
