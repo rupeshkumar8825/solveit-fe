@@ -3,8 +3,11 @@ import React from "react";
 import { Navbar, Nav,  Container, Button, Form, FormControl} from "react-bootstrap";
 // import { MDBCol, MDBIcon } from "mdbreact";
 import 'bootstrap/dist/css/bootstrap.css';
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { userNameAction } from "../redux/action/userNameAction";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+// import Navigation
 // import { Link } from 'react-router-dom';
 const textcolor = {
     "color" : "white",
@@ -15,9 +18,37 @@ const  Navigation = (props)=>{
     console.log("this is navigation menu ");
     // let user_name = useSelector((state) => state.userNameReducer.username);
     // console.log("the current user is", user_name);
+    const dispatch = useDispatch();
+    const nav = useNavigate();
+
     let user_name = props.user_name;
 
+    // DEFINING THE LOGOUT HANDLER FOR THIS PURPOSE 
+    const handle_on_logout = async()=>{
+        console.log("The user is trying to logout");
+        // WE WILL HAVE TO MAKE THE POST REQUEST TO LOGOUT FROM THIS 
+        dispatch(userNameAction(null));
 
+        // const URL = 
+        const URL = "http://127.0.0.1:8000/logout";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true,
+            "credentials": "include"
+
+        }
+		const response = await axios.get(URL, headers);
+		console.log(response.data)
+
+        if(response.data.status == 200)
+        {
+            console.log("Successfully logged out from the solveit application\n");
+            dispatch(userNameAction(null));
+            nav('/');
+        }
+        
+    }
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -33,6 +64,8 @@ const  Navigation = (props)=>{
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Idea</Nav.Link>
                     {user_name? <Nav.Link className = "ml-5 "  style={textcolor} href="/profile">{user_name}</Nav.Link> : <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Signup</Nav.Link> 
                     }
+                    {user_name && <Nav.Link className = "ml-5 "  style={textcolor} onClick = {handle_on_logout} >Logout</Nav.Link>} 
+                    
 
                     </Nav>
 
