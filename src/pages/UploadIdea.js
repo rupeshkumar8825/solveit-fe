@@ -19,7 +19,7 @@ const UploadIdea = ()=>{
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [description, setDescription] = useState("");
-    const [ideafile, setIdeafile] = useState("");
+    // const [ideafile, setIdeafile] = useState("");
     const [thumbnail, setThumbnail] = useState("");
 
     const username = useSelector((state)=> state.userNameReducer.username);
@@ -90,25 +90,25 @@ const UploadIdea = ()=>{
         setRating(e.target.value);
     }
 
-    const handle_on_change_email = (e)=>{
-        console.log(e.target.value);
-        setEmail(e.target.value);
-    }
+    // const handle_on_change_email = (e)=>{
+    //     console.log(e.target.value);
+    //     setEmail(e.target.value);
+    // }
 
-    const handle_on_change_phone = (e)=>{
-        console.log(e.target.value);
-        setPhone(e.target.value);
-    }
+    // const handle_on_change_phone = (e)=>{
+    //     console.log(e.target.value);
+    //     setPhone(e.target.value);
+    // }
 
     const handle_on_change_description = (e)=>{
         console.log(e.target.value);
         setDescription(e.target.value);
     }
 
-    const handle_on_change_ideafile = (e)=>{
-        console.log(e.target.files[0]);
-        setIdeafile(e.target.files[0]);
-    }
+    // const handle_on_change_ideafile = (e)=>{
+    //     console.log(e.target.files[0]);
+    //     setIdeafile(e.target.files[0]);
+    // }
 
     const handle_on_change_thumbnail = (e)=>{
         console.log(e.target.files[0]);
@@ -120,17 +120,23 @@ const UploadIdea = ()=>{
     const handle_on_upload = async()=>{
         console.log("The user has submitted the idea.");
         // DEFINING THE DATA TO BE SENT TO THE BACKEND 
-        const data = {
-            idea : idea,
-            category : category, 
-            otherknow : otherknow,
-            rating : rating, 
-            email : email, 
-            phone : phone, 
-            description : description, 
-            ideafile : ideafile, 
-            thumbnail : thumbnail
-        };
+        const data = new FormData();
+        data.append("idea", idea);
+        data.append("category", category);
+        data.append("otherknow", otherknow);
+        data.append("rating", rating);
+        data.append("description", description);
+        data.append("image", thumbnail);
+        // const data = {
+        //     idea : idea,
+        //     category : category, 
+        //     otherknow : otherknow,
+        //     rating : rating, 
+        //     email : email, 
+        //     phone : phone, 
+        //     description : description, 
+        //     thumbnail : thumbnail
+        // };
         
         const URL = "http://127.0.0.1:8000/upload";
         const headers = {
@@ -185,35 +191,33 @@ const UploadIdea = ()=>{
                             <input type="text" id="form6Example4" className="form-control" onChange={handle_on_change_rating}/>
                         </div>
 
-                        <div className="form-outline mb-4">
+                        {/* <div className="form-outline mb-4">
                             <label className="form-label" for="form6Example5">Email</label>
                             <input type="email" id="form6Example5" className="form-control" onChange={handle_on_change_email}/>
-                        </div>
+                        </div> */}
 
-                        <div className="form-outline mb-4">
+                        {/* <div className="form-outline mb-4">
                             <label className="form-label" for="form6Example6">Phone</label>
                             <input type="number" id="form6Example6" className="form-control" onChange={handle_on_change_phone}/>
-                        </div>
+                        </div> */}
 
                         <div className="form-outline mb-4">
                             <label className="form-label" for="form6Example7">More Detail About Idea</label>
                             <textarea className="form-control" id="form6Example7" rows="4" onChange={handle_on_change_description}></textarea>
                         </div>
 
-                        <div className="form-outline mb-4">Upload More Detailed explanation of idea</div>
-                        {/* CODE TO INPUT THE FILE FROM THE USER TO KNOW MORE ABOUT THE PROJECT  */}
+                        {/* <div className="form-outline mb-4">Upload More Detailed explanation of idea</div>
                         <div className="input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="inputGroupFileAddon01">Upload</span>
                             </div>
                             <div className="custom-file">
-                                {/* <label className="custom-file-label">Upload More Detailed explanation of idea</label> */}
                                 <input type="file" className="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01" onChange={handle_on_change_ideafile}/>
                                 <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                         </div>
-
+ */}
                         
                         <div className="form-outline mb-4">Upload a thumbnail for your post</div>
                         {/* CODE TO INPUT THE FILE FROM THE USER TO KNOW MORE ABOUT THE PROJECT  */}
@@ -223,7 +227,7 @@ const UploadIdea = ()=>{
                             </div>
                             <div className="custom-file">
                                 {/* <label className="custom-file-label">Upload More Detailed explanation of idea</label> */}
-                                <input type="file" className="custom-file-input" id="inputGroupFile01"
+                                <input type="file" name="image" className="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01" onChange={handle_on_change_thumbnail}/>
                                 <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>

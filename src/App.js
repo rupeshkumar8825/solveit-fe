@@ -12,16 +12,10 @@ import UploadIdea from "./pages/UploadIdea";
 import Signin from "./pages/Signin";
 import Register from "./pages/Register";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 // import browserHistory
 // import { browserHistory } from 'react-router';
-import { Navigate } from "react-router-dom";
 
-import { useEffect } from "react";
 
-import isLoggedInReducer from "./redux/reducer/isLoggedInReducer";
-import { isLoggedInAction } from "./redux/action/loggedin";
-import axios from "axios";
 import Navigation from "./components/Navigation";
 
 
