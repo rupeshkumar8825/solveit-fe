@@ -12,6 +12,8 @@ import UploadIdea from "./pages/UploadIdea";
 import Signin from "./pages/Signin";
 import Register from "./pages/Register";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
 // import browserHistory
 // import { browserHistory } from 'react-router';
 
@@ -26,9 +28,23 @@ function App() {
     const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
 	console.log(isLoggedIn)
 	const username = useSelector((state)=> state.userNameReducer.username);
+	const getListOfIdeas = async ()=>{
+        const URL = "http://127.0.0.1:8000/ideas";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
 
+        }
+		const response = await axios.get(URL, headers);
+		console.log(response.data)
+		
+    }
 	
-
+	useEffect(() => {
+		getListOfIdeas();
+		
+	}, []);
 	// useEffect(async () => {
 	// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 
 	// 	const URL = "http://localhost:8080/";
