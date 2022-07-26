@@ -40,9 +40,9 @@ const Home = ()=>{
     const getAuthentication = async ()=>{
         const url = "http://127.0.0.1:8000/";
         const headers = {
-            // 'Content-Type' : 'application/json',
+            'Content-Type' : 'application/json',
             // 'Content-Type' : 'image/png',
-            'responseType': 'blob',
+            // 'responseType': 'blob',
             "Access-Control-Allow-Origin" : "*",
             "withCredentials": true
 
@@ -51,42 +51,66 @@ const Home = ()=>{
 		const response = await axios.get(url, headers);
 		// console.log(response.data)
 
-		// if(response.data.status == 200)
-		// {
-		// 	// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-		// 	// console.log("The user is already loggedin\n");
-        //     // console.log(response.data.curr_user);
+		if(response.data.status == 200)
+		{
+			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
+			// console.log("The user is already loggedin\n");
+            // console.log(response.data.curr_user);
 
-        //     let user_name = response.data.curr_user.username;
-        //     console.log(response.data.fileLocation);
-        //     dispatch(userNameAction(user_name));
-        //     // username = user_name;
-		// }
-		// else if(response.data.status == 401)
-		// {
-            // const blob  = await response.blob();
-            // console.log("The file data is as follows\n");
-            // const imageBlob = await response.blob();
-            console.log("The image blob is as follows\n");
-            console.log(response.data);
-            const imageObjectURL = URL.createObjectURL(response.data);
-            console.log("The image url is as follows\n");
-            console.log(imageObjectURL);
-            setImg(imageObjectURL);
-            console.log(response.data)
-            // global.url.createObjectURL = jest.fn();
-            // const imgURL = url.createObjectURL(response.data);
-            // const reader = new FileReader();
-            // reader.readAsDataURL(blob);
-            // reader.onloadend = () => {
-            // const base64data = reader.result;
-            // setImg(base64data);
-            // console.log("The image url is as follows\n\n");
-            // console.log(imgURL);
-            // setImg(imgURL);
-			// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
-            console.log("No user exists. And this user is not signed in yet");
-		// }
+            let user_name = response.data.curr_user.username;
+            console.log(response.data.fileLocation);
+            dispatch(userNameAction(user_name));
+            console.log("The list of users is as follows\n");
+            console.log(response.data.users);
+
+            console.log("The list of ideas is as follows\n");
+            console.log(response.data.ideas);
+            // username = user_name;
+		}
+		else if(response.data.status == 401)
+		{
+            
+            // const imageObjectURL = URL.createObjectURL(response.data);
+            // console.log("The image url is as follows\n");
+            // console.log(imageObjectURL);
+            // console.log(response.data)
+            // setImg(imageObjectURL);
+            // console.log("The list of users is as follows\n");
+            // console.log(response.data.users);
+
+            // console.log("The list of ideas is as follows\n");
+            // console.log(response.data.ideas);
+            // console.log("There is no user has signed in\n");
+            const ideas = response.data.ideas;
+            let imgList = [];
+            ideas.forEach(element => {
+                imgList.push(element.thumbnail);
+            })
+            // console.log('The list of images is as followss\n');
+            // console.log(imgList);
+
+            // USING THE FOR LOOP TO STORE ALL THE IMAGES HERE FOR THIS PURPOSE 
+            imgList.forEach(async element => {
+                // WE HAVE TO MAKE  A GET REQUEST TO BACKEND TO BRING THE IMAGE FOR THIS PURPOSE AND STORE IT IN THE ARRAY 
+                const options = {
+                    'responseType': 'blob',
+                    "Access-Control-Allow-Origin" : "*",
+                    imageName : element,
+                    "withCredentials": true
+                }
+                const response2 = await axios.get(`http://127.0.0.1:8000/image?path=${element}`, options);
+
+                console.log('The response from the image get end point is as follows\n');
+                console.log(response2.data);
+                // NOW WE HAVE TO CHANGE THIS TO THE IMAGE URL AND THEN WE HAVE TO STORE IT IN THE ARRAY 
+
+
+            });
+
+            // WE ALSO HAVE TO FETCH ALL THE IMAGES BEFORE HAND AND STORE IT IN THE VARIABLES 
+
+
+		}
     }
     useEffect(() => {
 
