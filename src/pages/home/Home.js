@@ -19,6 +19,8 @@ import "../../css/Home.css"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userNameAction } from "../../redux/action/userNameAction";
+import { imageUrlAction } from "../../redux/action/imageUrlAction";
+import { ideasAction } from "../../redux/action/ideasAction";
 
 // import {jest} from '@jest/globals'
 
@@ -32,6 +34,8 @@ const Home = ()=>{
     console.log("this is home page");
     const [img, setImg] = useState("");
 
+    // const finalImgList = useSelector((state) => state.imgUrlReducer.imgList);
+    // console.log("The list of ")
     const dispatch = useDispatch();
     
 
@@ -48,9 +52,11 @@ const Home = ()=>{
 		const response = await axios.get(url, headers);
 
         const ideas = response.data.ideas;
-
+        // STORING THE LIST OF IDEAS 
+        dispatch(ideasAction(ideas));
 
         let imgList = [];
+        
         ideas.forEach(element => {
             imgList.push(element.thumbnail);
         })
@@ -98,7 +104,7 @@ const Home = ()=>{
         
         console.log("The list of urls of images that we got is as follows\n");
         console.log(imgUrlList);
-
+        dispatch(imageUrlAction(imgUrlList));
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;

@@ -10,6 +10,7 @@ import Post from "../../components/Post";
 
 
 import "../../css/Home.css"
+import { useSelector } from "react-redux";
 
 const style1 = {
     "width" : "18rem"
@@ -20,6 +21,15 @@ const style1 = {
 // defining the home page for this purpose /
 const PopularPosts = ()=>{
     console.log("this is home page");
+    const imgList = useSelector((state) => state.imgUrlReducer.imgList);
+    const ideasList = useSelector((state) => state.ideaReducer.ideasList);
+
+    console.log("The list of images is as follows\n\n");
+    console.log(imgList);
+    console.log("The list of ideas is as follows\n");
+    console.log(ideasList);
+    // WE WILL HAVE TO FETCH ALL THE IMAGES 
+    // console.
 
     return (
         <>
