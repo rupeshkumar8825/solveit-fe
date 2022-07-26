@@ -1,7 +1,9 @@
 // this is component for the post on the solveit 
 import React from "react";
 
-const Post = ()=>{
+const Post = (props)=>{
+    console.log("The props are as follows\n");
+    console.log(props);
     return (
         <>
             <div className="card">
@@ -12,9 +14,9 @@ const Post = ()=>{
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                         </svg>
                         {/* <div className="container"> */}
-                            <p>r/Askmen</p>
+                            <p>{props.details.username}</p>
                         {/* <div className="container"> */}
-                            <h6>Posted by u/Yaaa123 5 hours ago</h6>
+                            <h6>Posted by {props.details.firstname} 5 hours ago</h6>
 
                         {/* </div> */}
                     </div>
@@ -25,19 +27,21 @@ const Post = ()=>{
                 </div>
                 
                 <div className="container" id="idea">
-                    <h3>Idea</h3>
+                    <h3>{props.details.ideaname}</h3>
 
                 </div>
                 <div className="container">
-                    <p>This is details of the Idea in short. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident unde dolores, assumenda itaque voluptatum, cumque sint maxime accusamus, tempora incidunt atque reprehenderit ducimus iusto nostrum quo ex ratione totam suscipit.
+                    {/* <p>This is details of the Idea in short. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident unde dolores, assumenda itaque voluptatum, cumque sint maxime accusamus, tempora incidunt atque reprehenderit ducimus iusto nostrum quo ex ratione totam suscipit.
                     Autem repudiandae vitae aliquid reiciendis maiores, assumenda quibusdam deleniti nemo accusantium aliquam quisquam quos eum ipsa aspernatur perferendis, ut officiis commodi, beatae nisi! Dolorum sapiente ut, sunt itaque molestias ab?
                     
-                    At rerum inventore sed delectus, laboriosam repellendus nisi magnam officiis quae, error modi! Optio, numquam corporis dolores iste molestias rerum sint, non id ad voluptatibus libero labore nesciunt deserunt laboriosam.</p>
+                    At rerum inventore sed delectus, laboriosam repellendus nisi magnam officiis quae, error modi! Optio, numquam corporis dolores iste molestias rerum sint, non id ad voluptatibus libero labore nesciunt deserunt laboriosam.</p> */}
+                    <p>{props.details.description}</p>
+
 
                 </div>
             {/* <div className="card" style="width: 18rem;"> */}
                 <div className="container">
-                    <img src="https://source.unsplash.com/random/?city,night" className="card-img-top" alt="Image"/>
+                    <img src={props.details.url} className="card-img-top" alt="Image"/>
 
                 </div>
                 <div className="card-body" id="footer">

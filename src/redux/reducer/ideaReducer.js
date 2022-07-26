@@ -1,6 +1,6 @@
 // THIS IS REDUCER FOR STORING THE LIST OF IDEAS 
 // DEFINING THE INITIAL STATE FOR THIS PURPOSE 
-const initialState  = {ideasList : null};
+const initialState  = {ideasList : []};
 
 const ideaReducer = (state = initialState, action)=>{
     // APPLYING THE SWITCH STATEMENT FOR THIS PURPOSE 

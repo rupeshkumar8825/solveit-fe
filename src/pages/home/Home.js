@@ -19,8 +19,10 @@ import "../../css/Home.css"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userNameAction } from "../../redux/action/userNameAction";
-import { imageUrlAction } from "../../redux/action/imageUrlAction";
+
 import { ideasAction } from "../../redux/action/ideasAction";
+import { usersAction } from "../../redux/action/usersAction";
+import { postsDetailsAction } from "../../redux/action/postsDetailsAction";
 
 // import {jest} from '@jest/globals'
 
@@ -52,18 +54,21 @@ const Home = ()=>{
 		const response = await axios.get(url, headers);
 
         const ideas = response.data.ideas;
-        // STORING THE LIST OF IDEAS 
+        const users = response.data.users;
+        // STORING THE LIST OF IDEAS AND USERS  
         dispatch(ideasAction(ideas));
+        dispatch(usersAction(users));
+
 
         let imgList = [];
-        
+
         ideas.forEach(element => {
             imgList.push(element.thumbnail);
         })
 
 
         
-        const imgUrlList = [];
+        const postsListDetails = [];
 
         // USING THE FOR LOOP TO STORE ALL THE IMAGES HERE FOR THIS PURPOSE 
         imgList.forEach(async element => {
@@ -81,30 +86,73 @@ const Home = ()=>{
         
         
             // AGAIN WE HAVE TO FIND THE ID OF IDEA CORRESPONDING TO THIS PICTURE 
-            let currId = null;
+            // let currId = null;
+            let curruserId = null;
+            let currIdeaId = null;
+            let currEmail = null;
+            let currfirstname = null;
+            let currlastname = null;
+            let currphone = null;
+            let currusername = null;
+            let currcategory = null;
+            let currdescription = null;
+            let currideaname = null;
+            let currothersknow = null;
+            let currrating = null;
+
+            // let 
             ideas.forEach(element2 => {
                 if(element2.thumbnail === element)
                 {
-                    currId = element2._id;
+                    currIdeaId = element2._id;
+                    curruserId = element2.user_id;
+                    currcategory = element2.category;
+                    currdescription = element2.description;
+                    currideaname = element2.ideaname;
+                    currothersknow = element2.othersknow;
+                    currrating = element2.rating;
                 }
             });
 
-
+            // NOW I HAVE TO SEARCH THE USER CORRESPONDING TO THAT USER ID 
+            users.forEach(element2 => {
+                if(element2._id === curruserId)
+                {
+                    currEmail = element2.email;
+                    currfirstname = element2.firstname;
+                    currlastname = element2.lastname;
+                    currphone = element2.phone;
+                    currusername = element2.username;
+                }
+            });
             const tempObj = {
+                userId : curruserId,
+                ideaId : currIdeaId,
+                email : currEmail,
+                firstname : currfirstname,
+                lastname : currlastname,
+                phone : currphone,
+                username : currusername,
                 url : imageObjectURL,
-                ideaId : currId
+                category : currcategory,
+                description : currdescription,
+                ideaname : currideaname,
+                othersknow : currothersknow,
+                rating : currrating,
+
+
             };
             
             
-            imgUrlList.push(tempObj);
+            postsListDetails.push(tempObj);
             setImg(imageObjectURL);
             
 
         });
         
         console.log("The list of urls of images that we got is as follows\n");
-        console.log(imgUrlList);
-        dispatch(imageUrlAction(imgUrlList));
+        console.log(postsListDetails);
+        dispatch(postsDetailsAction(postsListDetails));
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
@@ -113,9 +161,7 @@ const Home = ()=>{
 		}
 		else if(response.data.status == 401)
 		{
-            
             console.log("No user is signed in yet\n");
-
 		}
     }
     useEffect(() => {

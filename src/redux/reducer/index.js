@@ -2,14 +2,16 @@
 import IsLoggedInReducer from "./isLoggedInReducer";
 import {combineReducers} from 'redux'
 import userNameReducer from "./userNameReducer";
-import imgUrlReducer from "./imgUrlReducer";
+import postDetailsReducer from "./postDetailsReducer";
 import ideaReducer from "./ideaReducer";
+import usersReducer from "./usersReducer";
 
 export default combineReducers({
     IsLoggedInReducer,
     userNameReducer,
-    imgUrlReducer,
-    ideaReducer
+    postDetailsReducer,
+    ideaReducer, 
+    usersReducer
     
 });
 

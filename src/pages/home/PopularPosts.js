@@ -21,16 +21,41 @@ const style1 = {
 // defining the home page for this purpose /
 const PopularPosts = ()=>{
     console.log("this is home page");
-    const imgList = useSelector((state) => state.imgUrlReducer.imgList);
+    const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const ideasList = useSelector((state) => state.ideaReducer.ideasList);
+    const usersList = useSelector((state) => state.usersReducer.usersList);
 
-    console.log("The list of images is as follows\n\n");
-    console.log(imgList);
+    console.log("The List of details of all the posts are as follows \n\n");
+    console.log(postsList);
     console.log("The list of ideas is as follows\n");
     console.log(ideasList);
+    console.log("The list of users is as follows\n");
+    console.log(usersList);
     // WE WILL HAVE TO FETCH ALL THE IMAGES 
     // console.
+    // MAPPING THE EACH COMPONENT FOR THIS PURPOSE 
+    let posts = [];
+    let len = postsList.length;
 
+    if(len == 0)
+    {
+        return(
+            <h1>Loading</h1>
+        )
+    }
+    // USING THE FOR LOOP FOR THIS PURPOSE 
+    for(let i = 0;i<postsList.length;i++)
+    {
+        console.log(postsList[i]);
+        posts.push(
+            <div className="row">
+                <div className="container" >
+                    <Post details = {postsList[i]}></Post>
+                </div>
+            </div>
+        )
+    }
+    // NOW I HAVE TO USE THE DETAILS AND THEN RENDER THE POSTS FOR THIS PURPOSE 
     return (
         <>
            
@@ -42,7 +67,8 @@ const PopularPosts = ()=>{
                     <h4>Popular Ideas</h4>
 
                 </div>
-                <div className="row">
+                {posts}
+                {/* <div className="row">
                     <div className="container" >
                         <Post></Post>
                     </div>
@@ -56,7 +82,7 @@ const PopularPosts = ()=>{
                     <div className="container" >
                         <Post></Post>
                     </div>
-                </div>
+                </div> */}
                 
             </div>
             
