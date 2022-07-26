@@ -30,85 +30,85 @@ const style1 = {
 // defining the home page for this purpose /
 const Home = ()=>{
     console.log("this is home page");
-    const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
-    const username = useSelector((state)=> state.userNameReducer.username);
-    console.log("The current status of user is ", isLoggedIn);
     const [img, setImg] = useState("");
 
     const dispatch = useDispatch();
+    
 
+    // DEFINING THE GET AUTHENTICATION FUNCTION TO AUTHENTICATE AND AT THE SAME TIME TO FETCH ALL USERS AND IDEAS AND STORE IT IN THE REDUX STORE 
     const getAuthentication = async ()=>{
         const url = "http://127.0.0.1:8000/";
         const headers = {
             'Content-Type' : 'application/json',
-            // 'Content-Type' : 'image/png',
-            // 'responseType': 'blob',
             "Access-Control-Allow-Origin" : "*",
             "withCredentials": true
-
+            
         }
-
+        
 		const response = await axios.get(url, headers);
-		// console.log(response.data)
+
+        const ideas = response.data.ideas;
+
+
+        let imgList = [];
+        ideas.forEach(element => {
+            imgList.push(element.thumbnail);
+        })
+
+
+        
+        const imgUrlList = [];
+
+        // USING THE FOR LOOP TO STORE ALL THE IMAGES HERE FOR THIS PURPOSE 
+        imgList.forEach(async element => {
+            // WE HAVE TO MAKE  A GET REQUEST TO BACKEND TO BRING THE IMAGE FOR THIS PURPOSE AND STORE IT IN THE ARRAY 
+            const options = {
+                'responseType': 'blob',
+                "Access-Control-Allow-Origin" : "*",
+                "withCredentials": true
+            }
+
+
+            const response2 = await axios.get(`http://127.0.0.1:8000/image?path=${element}`, options);
+            const imageObjectURL = URL.createObjectURL(response2.data);
+            
+        
+        
+            // AGAIN WE HAVE TO FIND THE ID OF IDEA CORRESPONDING TO THIS PICTURE 
+            let currId = null;
+            ideas.forEach(element2 => {
+                if(element2.thumbnail === element)
+                {
+                    currId = element2._id;
+                }
+            });
+
+
+            const tempObj = {
+                url : imageObjectURL,
+                ideaId : currId
+            };
+            
+            
+            imgUrlList.push(tempObj);
+            setImg(imageObjectURL);
+            
+
+        });
+        
+        console.log("The list of urls of images that we got is as follows\n");
+        console.log(imgUrlList);
 
 		if(response.data.status == 200)
 		{
-			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-			// console.log("The user is already loggedin\n");
-            // console.log(response.data.curr_user);
-
             let user_name = response.data.curr_user.username;
-            console.log(response.data.fileLocation);
             dispatch(userNameAction(user_name));
-            console.log("The list of users is as follows\n");
-            console.log(response.data.users);
 
-            console.log("The list of ideas is as follows\n");
-            console.log(response.data.ideas);
-            // username = user_name;
 		}
 		else if(response.data.status == 401)
 		{
             
-            // const imageObjectURL = URL.createObjectURL(response.data);
-            // console.log("The image url is as follows\n");
-            // console.log(imageObjectURL);
-            // console.log(response.data)
-            // setImg(imageObjectURL);
-            // console.log("The list of users is as follows\n");
-            // console.log(response.data.users);
-
-            // console.log("The list of ideas is as follows\n");
-            // console.log(response.data.ideas);
-            // console.log("There is no user has signed in\n");
-            const ideas = response.data.ideas;
-            let imgList = [];
-            ideas.forEach(element => {
-                imgList.push(element.thumbnail);
-            })
-            // console.log('The list of images is as followss\n');
-            // console.log(imgList);
-
-            // USING THE FOR LOOP TO STORE ALL THE IMAGES HERE FOR THIS PURPOSE 
-            imgList.forEach(async element => {
-                // WE HAVE TO MAKE  A GET REQUEST TO BACKEND TO BRING THE IMAGE FOR THIS PURPOSE AND STORE IT IN THE ARRAY 
-                const options = {
-                    'responseType': 'blob',
-                    "Access-Control-Allow-Origin" : "*",
-                    imageName : element,
-                    "withCredentials": true
-                }
-                const response2 = await axios.get(`http://127.0.0.1:8000/image?path=${element}`, options);
-
-                console.log('The response from the image get end point is as follows\n');
-                console.log(response2.data);
-                // NOW WE HAVE TO CHANGE THIS TO THE IMAGE URL AND THEN WE HAVE TO STORE IT IN THE ARRAY 
-
-
-            });
-
-            // WE ALSO HAVE TO FETCH ALL THE IMAGES BEFORE HAND AND STORE IT IN THE VARIABLES 
-
+            console.log("No user is signed in yet\n");
 
 		}
     }
