@@ -174,6 +174,9 @@ function App() {
         dispatch(postsDetailsAction(postsListDetails));
         // console.log("The response from the backend to the home page is as follows\n");
         // console.log(response.data);
+		
+		// SAY EVERYTHING WENT FINE 
+		return;
 	}
 
 

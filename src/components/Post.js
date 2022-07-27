@@ -13,6 +13,9 @@ const Post = (props)=>{
     const nav =  useNavigate();
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const usersList = useSelector((state) => state.usersReducer.usersList);
+    const upvotedList = useSelector((state) => state.upvotedListReducer.upvotedList);
+    console.log("The list of upvoted is as follows\n");
+    console.log(upvotedList);
     // console.log("The userslist is as follows \n", usersList);
     // console.log("The list of posts are as follows\n");
     // console.log(postsList);
@@ -113,10 +116,11 @@ const Post = (props)=>{
         {
             console.log("The current username is ", userName);
             // console.log("%$$$$$$$$$$$$%%$%$$$$$$$$$$$")
-            const upvotedIdeas = postsList[props.keys].upvotedIdeas;
-            let currIdeaId = postsList[props.keys].ideaId;
-            let currIdeaUserId = postsList[props.keys].userId;
+            // FINDING THE UPVOTED LIST CORRESPONDING TO THE USER FOR THIS PURPOSE 
+            // let currIdeaUserId = postsList[props.keys].userId;
             // console.log("The userid which has uploaded the post is ", currIdeaUserId);
+            let currUserUpvotedList = [];
+            let currIdeaId = postsList[props.keys].ideaId;
             let currUser = userName;
             let currUserId = null;
             
@@ -128,11 +132,23 @@ const Post = (props)=>{
                     
                 }
             });
+            
+            
+            upvotedList.forEach(element =>{
+                console.log("This is inside userslist element");
+                console.log(element)
+                if(currUserId === element.userId)
+                {
+                    currUserUpvotedList = element.upvotesList
+                }
+            });
+
+            console.log("The currUserUpvotedList is ", currUserUpvotedList);
             // console.log("The current userID", currUserId);
             
-            upvotedIdeas.forEach(element => {
+            currUserUpvotedList.forEach(element => {
                 // console.log(element);
-                if(element.ideasID === currIdeaId && props.keys.userId === currUserId)
+                if(element.ideasID === currIdeaId)
                 {
                     setAlreadyUpvoted(true);
                     console.log("Already upvoted");
