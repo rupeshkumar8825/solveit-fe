@@ -28,6 +28,7 @@ import { usersAction } from "./redux/action/usersAction";
 import Navigation from "./components/Navigation";
 import DetailedPost from "./pages/DetailedPost";
 import { upvotedListAction } from "./redux/action/upvotedListAction";
+import Profile from "./pages/Profile";
 
 
 
@@ -248,6 +249,7 @@ function App() {
 					<Route path="/unicorn" element={<Unicorn></Unicorn>}></Route>
 					<Route path="/signin" element={<Signin></Signin>}></Route>
 					<Route path="/details/:id" element={<DetailedPost></DetailedPost>}></Route>
+					<Route path="/profile" element = {<Profile></Profile>}></Route>
 					{/* <Route path="/" element={Home}></Route> */}
 				</Routes>
 			{/* <Navigation></Navigation> */}
