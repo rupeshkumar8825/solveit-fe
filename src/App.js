@@ -110,6 +110,7 @@ function App() {
             let currrating = null;
 			let currupvotes = 0;
 			let currshares = 0;
+			// let currsaved = [];
 			let currUpvotedIdeas = null;
 			
 			
@@ -126,6 +127,7 @@ function App() {
                     currrating = element2.rating;
 					currupvotes = element2.upvotes;
 					currshares = element2.shares;
+					// currsaved = element2.saved;
                 }
             });
 
@@ -181,7 +183,7 @@ function App() {
 
 
 	// DEFINING THE ROUTE TO GET THE LIST OF THE UPVOTED IDEAS ID CORRESPONDING TO EACH OF THE USERS 
-	const fetchUpvotedList = async ()=>{
+	const fetchUpvotedSavedList = async ()=>{
 		// WE HAVE TO MAKE THE POST REQUEST FOR THIS PURPOSE 
 		const url = "http://127.0.0.1:8000/upvotedList";
         const headers = {
@@ -192,11 +194,11 @@ function App() {
         }
         
 		const response = await axios.get(url, headers);
-		console.log("The response from the backend is as follows\n");
-		console.log(response.data);
-		const userUpvotedList = response.data.usersUpvotedList;
-		console.log("The list from the backend of the upvoted is as follows\n", userUpvotedList);
-		dispatch(upvotedListAction(userUpvotedList));
+		// console.log("The response from the backend is as follows\n");
+		// console.log(response.data);
+		const userUpvotedSavedList = response.data.usersUpvotedSavedList;
+		// console.log("The list from the backend of the upvoted is as follows\n", userUpvotedSavedList);
+		dispatch(upvotedListAction(userUpvotedSavedList));
 
 		// SAY EVERYTHING WENT FINE 
 		return;
@@ -205,7 +207,7 @@ function App() {
 	useEffect(() => {
 		// getListOfIdeas();
 		fetchDetails();	
-		fetchUpvotedList();
+		fetchUpvotedSavedList();
 	}, []);
 		// useEffect(async () => {
 			// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 

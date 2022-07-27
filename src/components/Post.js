@@ -13,14 +13,16 @@ const Post = (props)=>{
     const nav =  useNavigate();
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const usersList = useSelector((state) => state.usersReducer.usersList);
-    const upvotedList = useSelector((state) => state.upvotedListReducer.upvotedList);
+    const upvotedSavedList = useSelector((state) => state.upvotedListReducer.upvotedList);
     console.log("The list of upvoted is as follows\n");
-    console.log(upvotedList);
+    console.log(upvotedSavedList);
     // console.log("The userslist is as follows \n", usersList);
-    // console.log("The list of posts are as follows\n");
-    // console.log(postsList);
+    console.log("The list of posts are as follows\n");
+    console.log(postsList);
     const [upvotes, setUpvotes] = useState(postsList[props.keys].upvotes);
+    // const [saveds, setSaveds] = useState(postsList[props.keys].saved);
     const [alreadyUpvoted, setAlreadyUpvoted] = useState(false);
+    const [alreadySaved, setAlreadySaved] = useState(false);
     // const [currUserIdd, setCurrUserIdd] = useState("");
 
     // HANDLER FOR SHOWING MORE DETAILS ABOUT THE PRODUCT 
@@ -110,16 +112,66 @@ const Post = (props)=>{
     }
 
 
+    // HANDLING THE SAVING EVENT 
+    const handle_on_save = async()=>{
+        console.log("The user is trying to save the idea or post in his watchlist for this purpose");
+        if(!userName)
+        {
+            nav("/signin");
+
+            // SAY EVERYTHING WENT FINE 
+            return;
+        }
+
+        if(alreadySaved)
+        {
+            console.log("Already saved");
+            
+            // SAY EVERYTHING WENT FINE 
+            return;
+        }
+        // WE HAVE TO GET THE DETAILS OF THE USER AND THE IDEA 
+        const currIdeaId = postsList[props.keys].ideaId;
+        let currUserId = null;
+        let currUser = userName;
+        usersList.forEach(element => {
+            if(element.username === currUser)
+            {
+                currUserId = element._id;
+                
+            }
+        });
+
+        // NOW WE HAVE TO MAKE THE POST REQUEST TO THE BACKEND TO ADD THIS TO THE LIST OF SAVED IN DB 
+        const URL = "http://127.0.0.1:8000/save";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+            
+        }
+
+        const data  = {
+            ideaID : currIdeaId,
+            userID : currUserId
+        }
+        const response = await axios.post(URL, data, headers);
+        setAlreadySaved(true);
+
+        // SAY EVERYTHING WENT FINE 
+        return;
+
+
+
+    }
+
     // USING THE USEEFFECT TO CHECK WHETHER THIS POST IS ALREADY UPVOTED OR NOT 
     useEffect(() => {
         if(userName)
         {
-            console.log("The current username is ", userName);
-            // console.log("%$$$$$$$$$$$$%%$%$$$$$$$$$$$")
-            // FINDING THE UPVOTED LIST CORRESPONDING TO THE USER FOR THIS PURPOSE 
-            // let currIdeaUserId = postsList[props.keys].userId;
-            // console.log("The userid which has uploaded the post is ", currIdeaUserId);
+            
             let currUserUpvotedList = [];
+            let currUserSavedList = [];
             let currIdeaId = postsList[props.keys].ideaId;
             let currUser = userName;
             let currUserId = null;
@@ -134,17 +186,16 @@ const Post = (props)=>{
             });
             
             
-            upvotedList.forEach(element =>{
-                console.log("This is inside userslist element");
-                console.log(element)
+            upvotedSavedList.forEach(element =>{
+                // console.log("This is inside userslist element");
+                // console.log(element)
                 if(currUserId === element.userId)
                 {
-                    currUserUpvotedList = element.upvotesList
+                    currUserUpvotedList = element.upvotesList;
+                    currUserSavedList = element.savedList;
                 }
             });
 
-            console.log("The currUserUpvotedList is ", currUserUpvotedList);
-            // console.log("The current userID", currUserId);
             
             currUserUpvotedList.forEach(element => {
                 // console.log(element);
@@ -155,14 +206,17 @@ const Post = (props)=>{
                     // return;
                 }
             });
-
-            // if(currUserId === currIdeaUserId)
-            // {
-
-            // }
-            // setCurrUserIdd(currUserId);
-            // let currIdea = postsList[props.keys].ideaId
-            // // console.log(currUser);
+            
+            currUserSavedList.forEach(element => {
+                // console.log(element);
+                if(element.ideasID === currIdeaId)
+                {
+                    setAlreadySaved(true);
+                    console.log("Already upvoted");
+                    // return;
+                }
+            });
+            
         }
         
         
@@ -232,13 +286,14 @@ const Post = (props)=>{
 
                     </div>
 
-                    <div className="container d-flex justify-content-space" id="save">
+                    <div className="container d-flex justify-content-space" id="save" onClick={handle_on_save}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16">
                             <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
                             <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
                         </svg>
+                        {alreadySaved ? <p style={{"color" : "blue"}}>Saved</p> : <p>Save</p>}
                         
-                        <p>Save</p>
+                        
 
                     </div>
                     <div className="container d-flex justify-content-space" id="comment">
