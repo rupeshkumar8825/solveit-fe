@@ -19,6 +19,7 @@ import { useEffect } from "react";
 
 
 import Navigation from "./components/Navigation";
+import DetailedPost from "./pages/DetailedPost";
 
 
 
@@ -83,6 +84,7 @@ function App() {
 					<Route path="/register" element={<Register></Register>}></Route>
 					<Route path="/unicorn" element={<Unicorn></Unicorn>}></Route>
 					<Route path="/signin" element={<Signin></Signin>}></Route>
+					<Route path="/details/:id" element={<DetailedPost></DetailedPost>}></Route>
 					{/* <Route path="/" element={Home}></Route> */}
 				</Routes>
 			{/* <Navigation></Navigation> */}

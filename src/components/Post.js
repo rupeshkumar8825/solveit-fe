@@ -21,11 +21,15 @@ const Post = (props)=>{
         {
             // THEN WE HAVE TO DIVERT THIS TO THE SIGNIN PAGE 
             nav('/signin');
+            
+            // SAY EVERYTHING WENT FINE 
+            return;
         }
 
         // OTHER WISE WE HAVE TO TRANSFER THIS TO SHOW THE DETAILS OF THE PROJECT 
         console.log("The value of clicked show details button is as follows\n");
         console.log(props.keys);
+        nav(`/details/${props.keys}`);
     }
     return (
         <>
