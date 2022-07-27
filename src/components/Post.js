@@ -3,8 +3,8 @@ import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Post = (props)=>{
     // console.log("The props are as follows\n");
@@ -14,6 +14,8 @@ const Post = (props)=>{
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     console.log("The list of posts are as follows\n");
     console.log(postsList);
+    const [upvotes, setUpvotes] = useState(postsList[props.keys].upvotes);
+    const [alreadyUpvoted, setAlreadyUpvoted] = useState(false);
 
     // HANDLER FOR SHOWING MORE DETAILS ABOUT THE PRODUCT 
     // IN THIS CASE FIRST WE HAVE TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
@@ -47,12 +49,22 @@ const Post = (props)=>{
             // SAY EVERYTHING WENT FINE 
             return;
         }
-        // WE HAVE TO FIRST FETCH THE VALUE OF THE ID OF THE IDEA AND ALSO THE ID OF THE USER 
+        if(alreadyUpvoted)
+        {
+            console.log("already upvoted\n");
+            
+            // SAY EVERYTHING WENT FINE 
+            return;
+        }
         let currUser = postsList[props.keys].userId;
         let currIdea = postsList[props.keys].ideaId;
         console.log("The upvoted idea is ", currIdea);
         console.log("The user that upvoted this idea is ", currUser);
-
+        
+        
+        // WE HAVE TO FIRST FETCH THE VALUE OF THE ID OF THE IDEA AND ALSO THE ID OF THE USER 
+        let newUpvote = upvotes + 1;
+        setUpvotes(newUpvote);
         // NOW WE HAVE TO MAKE THE POST REQUEST  TO THE BACKEND TO UPDATE VALUE OF TOTAL NUMBER OF UPDATES 
 		const URL = "http://127.0.0.1:8000/upvote";
         const headers = {
@@ -61,7 +73,8 @@ const Post = (props)=>{
             "withCredentials": true
             
         }
-
+        
+        setAlreadyUpvoted(true);
         const data = {
             ideaID : currIdea,
             userID : currUser
@@ -74,10 +87,32 @@ const Post = (props)=>{
         // NOW WE ALSO HAVE TO UPDATE THE VALUE OF TOTAL UPDATES OF THIS IDEA 
         postsList[props.keys].upvotes = postsList[props.keys].upvotes + 1;
 
-
         // SAY EVERYTHING WENT FINE 
         return;
     }
+
+
+    // USING THE USEEFFECT TO CHECK WHETHER THIS POST IS ALREADY UPVOTED OR NOT 
+    useEffect(() => {
+        if(userName)
+        {
+            // console.log("%$$$$$$$$$$$$%%$%$$$$$$$$$$$")
+            const upvotedIdeas = postsList[props.keys].upvotedIdeas;
+            let currIdeaId = postsList[props.keys].ideaId;
+            // console.log(currUser);
+            upvotedIdeas.forEach(element => {
+                console.log(element);
+                if(element.ideasID === currIdeaId)
+                {
+                    console.log("Already upvoted");
+                    setAlreadyUpvoted(true);
+                    return;
+                }
+            });
+        }
+        
+        
+    }, []);
 
 
     return (
@@ -122,13 +157,14 @@ const Post = (props)=>{
                 </div>
                 <div className="card-body" id="footer">
                     <div className="container d-flex justify-content-space" id="upvote" onClick={handle_on_upvote}>
-                        <p>{props.details.upvotes}</p>
+                        <p>{upvotes}</p>
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
                         </svg>
                         {/* <i class="icon icon-upvote _2Jxk822qXs4DaXwsN7yyHA"></i>        */}
-                        <p>Upvote</p>
+                        {alreadyUpvoted ? <p style={{"color" : "blue"}}>Upvoted</p> : <p>Upvote</p>}
+                        {/* <p>Upvote</p> */}
 
                     </div>
                     <div className="container d-flex justify-content-space" id="share">

@@ -109,6 +109,8 @@ function App() {
             let currrating = null;
 			let currupvotes = 0;
 			let currshares = 0;
+			let currUpvotedIdeas = null;
+			
 			
             // let 
             ideas.forEach(element2 => {
@@ -135,6 +137,7 @@ function App() {
                     currlastname = element2.lastname;
                     currphone = element2.phone;
                     currusername = element2.username;
+					currUpvotedIdeas = element2.upvotes
                 }
             });
             const tempObj = {
@@ -152,7 +155,8 @@ function App() {
                 othersknow : currothersknow,
                 rating : currrating,
 				upvotes : currupvotes,
-				shares : currshares
+				shares : currshares,
+				upvotedIdeas : currUpvotedIdeas
 				
 				
             };
