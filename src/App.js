@@ -107,6 +107,8 @@ function App() {
             let currideaname = null;
             let currothersknow = null;
             let currrating = null;
+			let currupvotes = 0;
+			let currshares = 0;
 			
             // let 
             ideas.forEach(element2 => {
@@ -119,6 +121,8 @@ function App() {
                     currideaname = element2.ideaname;
                     currothersknow = element2.othersknow;
                     currrating = element2.rating;
+					currupvotes = element2.upvotes;
+					currshares = element2.shares;
                 }
             });
 
@@ -147,6 +151,8 @@ function App() {
                 ideaname : currideaname,
                 othersknow : currothersknow,
                 rating : currrating,
+				upvotes : currupvotes,
+				shares : currshares
 				
 				
             };

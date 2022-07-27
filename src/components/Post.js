@@ -1,4 +1,5 @@
 // this is component for the post on the solveit 
+import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 
 const Post = (props)=>{
-    console.log("The props are as follows\n");
-    console.log(props);
+    // console.log("The props are as follows\n");
+    // console.log(props);
     const userName = useSelector((state) => state.userNameReducer.username);
     const nav =  useNavigate();
+    const postsList = useSelector((state) => state.postDetailsReducer.postsList);
+    console.log("The list of posts are as follows\n");
+    console.log(postsList);
 
     // HANDLER FOR SHOWING MORE DETAILS ABOUT THE PRODUCT 
     // IN THIS CASE FIRST WE HAVE TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
@@ -31,6 +35,51 @@ const Post = (props)=>{
         console.log(props.keys);
         nav(`/details/${props.keys}`);
     }
+
+    // DEFINING THE HANDLER FOR UPVOTING THE IDEAS AND UPDATING THIS IN THE DATABASE FOR THIS PURPOSE 
+    const handle_on_upvote = async ()=>{
+
+        // CHECKING WHETHER THIS IS SINGNED IN USER OR NOT 
+        if(!userName)
+        {
+            nav('/signin');
+
+            // SAY EVERYTHING WENT FINE 
+            return;
+        }
+        // WE HAVE TO FIRST FETCH THE VALUE OF THE ID OF THE IDEA AND ALSO THE ID OF THE USER 
+        let currUser = postsList[props.keys].userId;
+        let currIdea = postsList[props.keys].ideaId;
+        console.log("The upvoted idea is ", currIdea);
+        console.log("The user that upvoted this idea is ", currUser);
+
+        // NOW WE HAVE TO MAKE THE POST REQUEST  TO THE BACKEND TO UPDATE VALUE OF TOTAL NUMBER OF UPDATES 
+		const URL = "http://127.0.0.1:8000/upvote";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+            
+        }
+
+        const data = {
+            ideaID : currIdea,
+            userID : currUser
+        }
+        
+        const response = await axios.post(URL, data, headers);
+        console.log("The response from backend after making the upvote is as follows\n");
+        console.log(response.data);
+
+        // NOW WE ALSO HAVE TO UPDATE THE VALUE OF TOTAL UPDATES OF THIS IDEA 
+        postsList[props.keys].upvotes = postsList[props.keys].upvotes + 1;
+
+
+        // SAY EVERYTHING WENT FINE 
+        return;
+    }
+
+
     return (
         <>
             <div className="card">
@@ -72,7 +121,9 @@ const Post = (props)=>{
 
                 </div>
                 <div className="card-body" id="footer">
-                    <div className="container d-flex justify-content-space" id="upvote">
+                    <div className="container d-flex justify-content-space" id="upvote" onClick={handle_on_upvote}>
+                        <p>{props.details.upvotes}</p>
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
                         </svg>
@@ -81,7 +132,9 @@ const Post = (props)=>{
 
                     </div>
                     <div className="container d-flex justify-content-space" id="share">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                        
+                        {/* <p>{props.details.shares}</p> */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
                         </svg>
                         
