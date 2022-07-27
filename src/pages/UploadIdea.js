@@ -34,16 +34,16 @@ const UploadIdea = ()=>{
             "withCredentials":true
         }
 		const response = await axios.get(URL, headers);
-		console.log(response.data)
+		// console.log(response.data)
 		if(response.data.status == 200)
 		{
-            console.log("The current user is as follows\n");
-            console.log(response.data.curr_user);
+            // console.log("The current user is as follows\n");
+            // console.log(response.data.curr_user);
             // const user_name = response.data.curr_user.firstname + response.data.curr_user.lastname
             const user_name = response.data.curr_user.username;
             dispatch(userNameAction(user_name));
 			// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-			console.log("The user is already loggedin\n");
+			// console.log("The user is already loggedin\n");
 		}
 		else if(response.data.status == 401)
 		{
@@ -63,7 +63,7 @@ const UploadIdea = ()=>{
 
     // CALLING THE USE EFFECT HOOK FOR AUTHENTICATION 
     useEffect(() => {
-        console.log("The upload idea component rendered")
+        // console.log("The upload idea component rendered")
         getAuthentication()
         
     }, []);
@@ -71,22 +71,22 @@ const UploadIdea = ()=>{
 
     // DEFINING THE ON CHANGE HANDLERS FOR THIS PURPOSE 
     const handle_on_change_ideaname = (e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setIdea(e.target.value);
     }
 
     const handle_on_change_category = (e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setCategory(e.target.value);
     }
 
     const handle_on_change_othersknow = (e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setOtherknow(e.target.value);
     }
 
     const handle_on_change_rating = (e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setRating(e.target.value);
     }
 
@@ -101,7 +101,7 @@ const UploadIdea = ()=>{
     // }
 
     const handle_on_change_description = (e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setDescription(e.target.value);
     }
 
@@ -111,14 +111,14 @@ const UploadIdea = ()=>{
     // }
 
     const handle_on_change_thumbnail = (e)=>{
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         setThumbnail(e.target.files[0]);
     }
 
 
     // DEFINING THE EVENT HANDLERS FOR THIS APPLICATION 
     const handle_on_upload = async()=>{
-        console.log("The user has submitted the idea.");
+        // console.log("The user has submitted the idea.");
         // DEFINING THE DATA TO BE SENT TO THE BACKEND 
         const data = new FormData();
         data.append("idea", idea);
@@ -147,9 +147,9 @@ const UploadIdea = ()=>{
 
         // USING THE POST REQUEST TO SEND THE DATA TO THE BACKEND 
         const response = await axios.post(URL, data, headers);
-        console.log("The response from the backend is as follows \n");
-        console.log(response);
-        console.log("from here the backend will handle the idea  submission\n");
+        // console.log("The response from the backend is as follows \n");
+        // console.log(response);
+        // console.log("from here the backend will handle the idea  submission\n");
         
         // SAY EVERYTHING WENT FINE 
         return;

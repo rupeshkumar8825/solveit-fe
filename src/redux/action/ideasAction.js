@@ -5,5 +5,3 @@ export const ideasAction = (ideasList)=>{
         payload : ideasList
     }
 }
-
-// SAY EVERYTHING WENT FINE 

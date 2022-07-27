@@ -25,12 +25,12 @@ const PopularPosts = ()=>{
     const ideasList = useSelector((state) => state.ideaReducer.ideasList);
     const usersList = useSelector((state) => state.usersReducer.usersList);
 
-    console.log("The List of details of all the posts are as follows \n\n");
-    console.log(postsList);
-    console.log("The list of ideas is as follows\n");
-    console.log(ideasList);
-    console.log("The list of users is as follows\n");
-    console.log(usersList);
+    // console.log("The List of details of all the posts are as follows \n\n");
+    // console.log(postsList);
+    // console.log("The list of ideas is as follows\n");
+    // console.log(ideasList);
+    // console.log("The list of users is as follows\n");
+    // console.log(usersList);
     // WE WILL HAVE TO FETCH ALL THE IMAGES 
     // console.
     // MAPPING THE EACH COMPONENT FOR THIS PURPOSE 
@@ -46,7 +46,7 @@ const PopularPosts = ()=>{
     // USING THE FOR LOOP FOR THIS PURPOSE 
     for(let i = 0;i<postsList.length;i++)
     {
-        console.log(postsList[i]);
+        // console.log(postsList[i]);
         posts.push(
             <div className="row" >
                 <div className="container" >

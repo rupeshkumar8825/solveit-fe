@@ -27,6 +27,7 @@ import { usersAction } from "./redux/action/usersAction";
 
 import Navigation from "./components/Navigation";
 import DetailedPost from "./pages/DetailedPost";
+import { upvotedListAction } from "./redux/action/upvotedListAction";
 
 
 
@@ -168,16 +169,40 @@ function App() {
 			
         });
         
-        console.log("The list of urls of images that we got is as follows\n");
-        console.log(postsListDetails);
+        // console.log("The list of urls of images that we got is as follows\n");
+        // console.log(postsListDetails);
         dispatch(postsDetailsAction(postsListDetails));
-        console.log("The response from the backend to the home page is as follows\n");
-        console.log(response.data);
+        // console.log("The response from the backend to the home page is as follows\n");
+        // console.log(response.data);
+	}
+
+
+	// DEFINING THE ROUTE TO GET THE LIST OF THE UPVOTED IDEAS ID CORRESPONDING TO EACH OF THE USERS 
+	const fetchUpvotedList = async ()=>{
+		// WE HAVE TO MAKE THE POST REQUEST FOR THIS PURPOSE 
+		const url = "http://127.0.0.1:8000/upvotedList";
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+            
+        }
+        
+		const response = await axios.get(url, headers);
+		console.log("The response from the backend is as follows\n");
+		console.log(response.data);
+		const userUpvotedList = response.data.usersUpvotedList;
+		console.log("The list from the backend of the upvoted is as follows\n", userUpvotedList);
+		dispatch(upvotedListAction(userUpvotedList));
+
+		// SAY EVERYTHING WENT FINE 
+		return;
 	}
 		
 	useEffect(() => {
 		// getListOfIdeas();
 		fetchDetails();	
+		fetchUpvotedList();
 	}, []);
 		// useEffect(async () => {
 			// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 

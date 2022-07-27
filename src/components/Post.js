@@ -12,16 +12,19 @@ const Post = (props)=>{
     const userName = useSelector((state) => state.userNameReducer.username);
     const nav =  useNavigate();
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
-    console.log("The list of posts are as follows\n");
-    console.log(postsList);
+    const usersList = useSelector((state) => state.usersReducer.usersList);
+    // console.log("The userslist is as follows \n", usersList);
+    // console.log("The list of posts are as follows\n");
+    // console.log(postsList);
     const [upvotes, setUpvotes] = useState(postsList[props.keys].upvotes);
     const [alreadyUpvoted, setAlreadyUpvoted] = useState(false);
+    // const [currUserIdd, setCurrUserIdd] = useState("");
 
     // HANDLER FOR SHOWING MORE DETAILS ABOUT THE PRODUCT 
     // IN THIS CASE FIRST WE HAVE TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
     const handle_on_show_details = (e)=>{
-        console.log("The user wants to see the details of the project");
-        console.log(e);
+        // console.log("The user wants to see the details of the project");
+        // console.log(e);
         // APPLYING THE IF ELSE STATEMENT TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
         if(!userName)
         {
@@ -33,8 +36,8 @@ const Post = (props)=>{
         }
 
         // OTHER WISE WE HAVE TO TRANSFER THIS TO SHOW THE DETAILS OF THE PROJECT 
-        console.log("The value of clicked show details button is as follows\n");
-        console.log(props.keys);
+        // console.log("The value of clicked show details button is as follows\n");
+        // console.log(props.keys);
         nav(`/details/${props.keys}`);
     }
 
@@ -56,10 +59,10 @@ const Post = (props)=>{
             // SAY EVERYTHING WENT FINE 
             return;
         }
-        let currUser = postsList[props.keys].userId;
+        // let currUser = postsList[props.keys].username;
         let currIdea = postsList[props.keys].ideaId;
-        console.log("The upvoted idea is ", currIdea);
-        console.log("The user that upvoted this idea is ", currUser);
+        // console.log("The upvoted idea is ", currIdea);
+        // console.log("The user that upvoted this idea is ", userName);
         
         
         // WE HAVE TO FIRST FETCH THE VALUE OF THE ID OF THE IDEA AND ALSO THE ID OF THE USER 
@@ -73,16 +76,28 @@ const Post = (props)=>{
             "withCredentials": true
             
         }
+
+        let currUserId = null;
+        let currUser = userName;
+        // WE HAVE TO FETCH THE USERID GIVEN THE USERNAME 
+        usersList.forEach(element => {
+            if(element.username === currUser)
+            {
+                currUserId = element._id;
+                
+            }
+        });
+
         
         setAlreadyUpvoted(true);
         const data = {
             ideaID : currIdea,
-            userID : currUser
+            userID : currUserId
         }
         
         const response = await axios.post(URL, data, headers);
-        console.log("The response from backend after making the upvote is as follows\n");
-        console.log(response.data);
+        // console.log("The response from backend after making the upvote is as follows\n");
+        // console.log(response.data);
 
         // NOW WE ALSO HAVE TO UPDATE THE VALUE OF TOTAL UPDATES OF THIS IDEA 
         postsList[props.keys].upvotes = postsList[props.keys].upvotes + 1;
@@ -96,19 +111,42 @@ const Post = (props)=>{
     useEffect(() => {
         if(userName)
         {
+            console.log("The current username is ", userName);
             // console.log("%$$$$$$$$$$$$%%$%$$$$$$$$$$$")
             const upvotedIdeas = postsList[props.keys].upvotedIdeas;
             let currIdeaId = postsList[props.keys].ideaId;
-            // console.log(currUser);
-            upvotedIdeas.forEach(element => {
-                console.log(element);
-                if(element.ideasID === currIdeaId)
+            let currIdeaUserId = postsList[props.keys].userId;
+            // console.log("The userid which has uploaded the post is ", currIdeaUserId);
+            let currUser = userName;
+            let currUserId = null;
+            
+            // WE HAVE TO FETCH THE USERID GIVEN THE USERNAME 
+            usersList.forEach(element => {
+                if(element.username === currUser)
                 {
-                    console.log("Already upvoted");
-                    setAlreadyUpvoted(true);
-                    return;
+                    currUserId = element._id;
+                    
                 }
             });
+            // console.log("The current userID", currUserId);
+            
+            upvotedIdeas.forEach(element => {
+                // console.log(element);
+                if(element.ideasID === currIdeaId && props.keys.userId === currUserId)
+                {
+                    setAlreadyUpvoted(true);
+                    console.log("Already upvoted");
+                    // return;
+                }
+            });
+
+            // if(currUserId === currIdeaUserId)
+            // {
+
+            // }
+            // setCurrUserIdd(currUserId);
+            // let currIdea = postsList[props.keys].ideaId
+            // // console.log(currUser);
         }
         
         
