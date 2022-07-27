@@ -74,7 +74,7 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Navigation user_name = {username}></Navigation>
+				{/* <Navigation></Navigation> */}
 			{/* setting up the routes for solveit without the need of nodejs  */}
 				<Routes>
 					<Route exact path="/" element={<Home></Home>}></Route>

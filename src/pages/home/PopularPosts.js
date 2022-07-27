@@ -48,9 +48,9 @@ const PopularPosts = ()=>{
     {
         console.log(postsList[i]);
         posts.push(
-            <div className="row">
+            <div className="row" >
                 <div className="container" >
-                    <Post details = {postsList[i]}></Post>
+                    <Post details = {postsList[i]} keys={i}></Post>
                 </div>
             </div>
         )

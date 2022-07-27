@@ -23,7 +23,7 @@ import { userNameAction } from "../../redux/action/userNameAction";
 import { ideasAction } from "../../redux/action/ideasAction";
 import { usersAction } from "../../redux/action/usersAction";
 import { postsDetailsAction } from "../../redux/action/postsDetailsAction";
-
+// import Navigation from "../../components/Navigation";
 // import {jest} from '@jest/globals'
 
 const style1 = {
@@ -34,7 +34,8 @@ const style1 = {
 // defining the home page for this purpose /
 const Home = ()=>{
     console.log("this is home page");
-    const [img, setImg] = useState("");
+    const [posts, setposts] = useState([]);
+    const [username, setUsername] = useState("");
 
     // const finalImgList = useSelector((state) => state.imgUrlReducer.imgList);
     // console.log("The list of ")
@@ -145,7 +146,7 @@ const Home = ()=>{
             
             
             postsListDetails.push(tempObj);
-            setImg(imageObjectURL);
+            setposts(postsListDetails);
             
 
         });
@@ -153,9 +154,12 @@ const Home = ()=>{
         console.log("The list of urls of images that we got is as follows\n");
         console.log(postsListDetails);
         dispatch(postsDetailsAction(postsListDetails));
+        console.log("The response from the backend to the home page is as follows\n");
+        console.log(response.data);
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
+            setUsername(user_name);
             dispatch(userNameAction(user_name));
 
 		}
@@ -175,13 +179,14 @@ const Home = ()=>{
 
     return (
         <>
+            <Navigation></Navigation>
             <div className="container">
                 <div className="trendingHeading">
                     <h4>Trending Ideas</h4>
 
                 </div>
                 <div className="container2">
-                    <TrendingCard imgsrc = {img}></TrendingCard>
+                    <TrendingCard imgsrc = {"https://source.unsplash.com/random/?city,night"}></TrendingCard>
                     <TrendingCard imgsrc = {"https://source.unsplash.com/random/?city,night"}></TrendingCard>
                     <TrendingCard imgsrc = {"https://source.unsplash.com/random/900×700/?fruit"}></TrendingCard>
                     <TrendingCard imgsrc = {"https://source.unsplash.com/random/?people"}></TrendingCard>

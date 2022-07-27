@@ -157,7 +157,7 @@ const UploadIdea = ()=>{
 
     return (
         <>
-            {/* <Navigation user_name = {username}></Navigation> */}
+            <Navigation></Navigation>
             {/* <h1>here you can upload the problems or post the problems </h1> */}
             <div className="container" id="uploadidea">
                 <div className="container" id="heading">

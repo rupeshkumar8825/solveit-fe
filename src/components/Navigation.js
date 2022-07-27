@@ -16,12 +16,13 @@ const textcolor = {
 // defining the functional component for this purpose 
 const  Navigation = (props)=>{
     console.log("this is navigation menu ");
+    const user_name = useSelector((state) => state.userNameReducer.username);
     // let user_name = useSelector((state) => state.userNameReducer.username);
     // console.log("the current user is", user_name);
     const dispatch = useDispatch();
     const nav = useNavigate();
 
-    let user_name = props.user_name;
+    // let user_name = props.user_name;
 
     // DEFINING THE LOGOUT HANDLER FOR THIS PURPOSE 
     const handle_on_logout = async()=>{

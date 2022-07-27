@@ -1,9 +1,32 @@
 // this is component for the post on the solveit 
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Post = (props)=>{
     console.log("The props are as follows\n");
     console.log(props);
+    const userName = useSelector((state) => state.userNameReducer.username);
+    const nav =  useNavigate();
+
+    // HANDLER FOR SHOWING MORE DETAILS ABOUT THE PRODUCT 
+    // IN THIS CASE FIRST WE HAVE TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
+    const handle_on_show_details = (e)=>{
+        console.log("The user wants to see the details of the project");
+        console.log(e);
+        // APPLYING THE IF ELSE STATEMENT TO CHECK WHETHER THE USER IS SIGNED IN OR NOT 
+        if(!userName)
+        {
+            // THEN WE HAVE TO DIVERT THIS TO THE SIGNIN PAGE 
+            nav('/signin');
+        }
+
+        // OTHER WISE WE HAVE TO TRANSFER THIS TO SHOW THE DETAILS OF THE PROJECT 
+        console.log("The value of clicked show details button is as follows\n");
+        console.log(props.keys);
+    }
     return (
         <>
             <div className="card">
@@ -21,7 +44,7 @@ const Post = (props)=>{
                         {/* </div> */}
                     </div>
                     {/* <div className="container" id="seedetails" > */}
-                    <button type="button" class="btn btn-primary">See Details</button>
+                    <button type="button" value={props.details.key} onClick={handle_on_show_details} class="btn btn-primary">See Details</button>
                    
 
                 </div>
@@ -35,7 +58,7 @@ const Post = (props)=>{
                     Autem repudiandae vitae aliquid reiciendis maiores, assumenda quibusdam deleniti nemo accusantium aliquam quisquam quos eum ipsa aspernatur perferendis, ut officiis commodi, beatae nisi! Dolorum sapiente ut, sunt itaque molestias ab?
                     
                     At rerum inventore sed delectus, laboriosam repellendus nisi magnam officiis quae, error modi! Optio, numquam corporis dolores iste molestias rerum sint, non id ad voluptatibus libero labore nesciunt deserunt laboriosam.</p> */}
-                    <p>{props.details.description}</p>
+                    <p>{(props.details.description).substring(1, 700)}</p>
 
 
                 </div>
