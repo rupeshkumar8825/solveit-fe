@@ -12,9 +12,9 @@ import Post from "../../components/Post";
 import "../../css/Home.css"
 import { useSelector } from "react-redux";
 
-const style1 = {
-    "width" : "18rem"
-}
+// const style1 = {
+//     "width" : "18rem"
+// }
 
 
 
