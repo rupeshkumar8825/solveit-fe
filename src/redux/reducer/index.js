@@ -6,6 +6,7 @@ import postDetailsReducer from "./postDetailsReducer";
 import ideaReducer from "./ideaReducer";
 import usersReducer from "./usersReducer";
 import upvotedListReducer from "./upvotedListReducer";
+import userUpvotedListReducer from "./userUpvotedListReducer";
 
 export default combineReducers({
     IsLoggedInReducer,
@@ -13,7 +14,8 @@ export default combineReducers({
     postDetailsReducer,
     ideaReducer, 
     usersReducer,
-    upvotedListReducer
+    upvotedListReducer,
+    userUpvotedListReducer
     
 });
 

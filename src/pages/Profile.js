@@ -24,10 +24,11 @@ const style1 = {
 // DEFINING THE COMPONENT FOR THIS PURPOSE 
 const Profile = ()=>{
     
-    const userName = useSelector((state) => state.userNameReducer.username);
+    // const userName = useSelector((state) => state.userNameReducer.username);
     const [username, setUsername] = useState("");
+    const [userID, setuserID] = useState("");
     const dispatch = useDispatch();
-    console.log("The user name is ", userName);
+    console.log("The user name is ", username);
 
     // DEFINING THE GET AUTHENTICATION FUNCTION TO AUTHENTICATE AND AT THE SAME TIME TO FETCH ALL USERS AND IDEAS AND STORE IT IN THE REDUX STORE 
     const getAuthentication = async ()=>{
@@ -43,7 +44,9 @@ const Profile = ()=>{
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
+            console.log(response.data);
             setUsername(user_name);
+            setuserID(response.data.curr_user._id);
             dispatch(userNameAction(user_name));
 
 		}
@@ -53,15 +56,38 @@ const Profile = ()=>{
 		}
     }
 
+
+    // DEFINING THE FUNCTION TO FETCH THE DETAILS OF THE CURRENT SIGNED IN USER 
+    const fetchUsersDetails = ()=>{
+        // WE HAVE TO MAKE THE POST REQUEST THE SERVER TO GET THE DETAILS OF THE USER CURRENTLY SINGNED AND THEN WE WILL DISPLAY THE DETAILS TO THE FINAL USER FOR THIS PURPOSE 
+        console.log("The user id whose info we want is as follows\n");
+        console.log(userID);
+
+    }
     // WE HAVE TO CALL THE USEEFFECT AND GET THE DETAILS OF THE USERS FOR THIS PURPOSE 
     useEffect(() => {
         getAuthentication();
+        let timeID = null;
+        timeID = setTimeout(() => {
+            console.log("came inside the useeffect if else statement for this purpose\n");
+            console.log("called the fetchUsersDetails function ");
+            fetchUsersDetails()
+        }, 2000);
+
+        return ()=>{
+            clearTimeout(timeID);
+        }
+        // if(username)
+        // {
+            // fetchUsersDetails();
+
+        // }
         
     }, []);
     return(
         <>
         
-            <h1>Hi this is profile section of the user {userName}</h1>
+            <h1>Hi this is profile section of the user {username}</h1>
 
             <div class="container rounded bg-white mt-5 mb-5">
                 <div class="row">
