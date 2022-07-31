@@ -60,7 +60,7 @@ const PopularPosts = (props)=>{
             currPosts.push(
                 <div className="row" >
                     <div className="container" >
-                        <Post details = {postsList[i]} keys={i} identifier = {props.identifier}></Post>
+                        <Post userID = {props.userID} details = {postsList[i]} keys={i} identifier = {props.identifier}></Post>
                     </div>
                 </div>
             )

@@ -51,7 +51,9 @@ const Profile = ()=>{
     const [savedPost, setSavedPost] = useState(false);
     const [uploadedPost, setUploadedPost] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [currProfileUser, setCurrentProfileUser] = useState("");
     const [currUser, setCurrUser] = useState("");
+    const [sameUser, setSameUser] = useState(true);
     // connst 
 
     const dispatch = useDispatch();
@@ -116,22 +118,22 @@ const Profile = ()=>{
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
-            console.log(response.data);
+            // console.log(response.data);
             
             setUsername(user_name);
             // setuserID(response.data.curr_user._id);
             // console.log("The userid of the current user is ", userID);
-            // setCurrUser(response.data.curr_user);
+            setCurrUser(response.data.curr_user);
             usersList.forEach(element => {
                 if(element._id === userID)
                 {
-                    setCurrUser(element);
+                    setCurrentProfileUser(element);
                 }
             });
 
             // WE HAVE TO SET THE CURRUSER AS SOMETHING ELSE 
             // console.log("The current user is as follows \n");
-            // console.log(currUser);
+            // console.log(currProfileUser);
             dispatch(userNameAction(user_name));
             dispatch(usersAction(response.data.users));
             dispatch(ideasAction(response.data.ideas));
@@ -148,10 +150,10 @@ const Profile = ()=>{
     // DEFINING THE FUNCTION TO FETCH THE DETAILS OF THE CURRENT SIGNED IN USER 
     const fetchUsersDetails = async ()=>{
         // WE HAVE TO MAKE THE POST REQUEST THE SERVER TO GET THE DETAILS OF THE USER CURRENTLY SINGNED AND THEN WE WILL DISPLAY THE DETAILS TO THE FINAL USER FOR THIS PURPOSE 
-        console.log("The user id whose info we want is as follows\n");
-        console.log(userID);
-
-
+        // console.log("The user id whose info we want is as follows\n");
+        // console.log(userID);
+        
+        
         // const URL = 
         const URL = `http://127.0.0.1:8000/user/${userID}`;
         const headers = {
@@ -162,13 +164,27 @@ const Profile = ()=>{
         }
 
         const response = await axios.get(URL, headers);
-        console.log("The response and details of the user is as follows\n");
-        console.log(response.data);
+        // console.log("The response and details of the user is as follows\n");
+        // console.log(response.data);
         dispatch(userUpvotedListAction(response.data.upvotedIdeaList));
         dispatch(userSavedListAction(response.data.savedIdeaList));
         // console.log("The list of posts is as follows\n", postsList);
         
-
+        if(currUser._id === userID)
+        {
+            setSameUser(true);
+            setUpvotedPost(true);
+            console.log("came inside the if block\n");
+        }
+        else
+        {
+            console.log('inside the else block\n');
+            setSameUser(false);
+            setUpvotedPost(false);
+            setSavedPost(false);
+            setUploadedPost(false);
+        }
+        
     }
 
 
@@ -178,9 +194,9 @@ const Profile = ()=>{
     //     {
     //         let currPosts = [];
     //         let userDetail = {
-    //             currUserID : currUser._id,
-    //             userName : currUser.username,
-    //             firstname : currUser.firstname,
+    //             currUserID : currProfileUser._id,
+    //             userName : currProfileUser.username,
+    //             firstname : currProfileUser.firstname,
     //         }
     //         console.log("The list of posts are as follows\n");
     //         console.log(postsList);
@@ -231,12 +247,12 @@ const Profile = ()=>{
     return(
         <>
         
-            {/* <h1>Hi this is profile section of the user {username} and the current details is {userID} and currentuser is {currUser.username}</h1> */}
+            {/* <h1>Hi this is profile section of the user {username} and the current details is {userID} and currentuser is {currProfileUser.username}</h1> */}
 
             <div class="container rounded bg-white mt-5 mb-5">
                 <div class="row">
                     <div class="col-md-7 border-right">
-                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/><span class="font-weight-bold">{currUser.username}</span><span class="text-black-50">{currUser.email}</span><span> </span></div>
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/><span class="font-weight-bold">{currProfileUser.username}</span><span class="text-black-50">{currProfileUser.email}</span><span> </span></div>
                     </div>
                     <div class="col-md-5 border-right">
                         <div class="p-3 py-5">
@@ -246,7 +262,7 @@ const Profile = ()=>{
                             <div class="row mt-2">
                                 <div class="col-md-6">
                                     {/* <label class="labels">Name = </label> */}
-                                    <p>Name = {currUser.firstname}</p>
+                                    <p>Name = {currProfileUser.firstname}</p>
                                     {/* <p>John</p> */}
                                     {/* <p>John</p> */}
                                     </div>
@@ -254,27 +270,27 @@ const Profile = ()=>{
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-12">
-                                    {/* <label class="labels">{currUser.phone}</label> */}
-                                    <p>Username : {currUser.username}</p>
+                                    {/* <label class="labels">{currProfileUser.phone}</label> */}
+                                    <p>Username : {currProfileUser.username}</p>
                                     {/* <p>Johnny something</p>                                    */}
                                 </div>
                                 <div class="col-md-12">
-                                    {/* <label class="labels">{currUser.phone}</label> */}
-                                    <p>Email : {currUser.email}</p>
+                                    {/* <label class="labels">{currProfileUser.phone}</label> */}
+                                    <p>Email : {currProfileUser.email}</p>
                                     {/* <p>rk763130@gmail.com</p> */}
                                    
                                 </div>
                                 <div class="col-md-12">
-                                    <p>Phone : {currUser.phone}</p>
+                                    <p>Phone : {currProfileUser.phone}</p>
                                     {/* <p>8825220213</p> */}
                                 </div>
                                 <div class="col-md-12">
-                                    {currUser.upvotes ?  <p>Upvoted Ideas: {currUser.upvotes.length}</p> : <p>Upvoted Ideas : 0</p>   }
+                                    {currProfileUser.upvotes ?  <p>Upvoted Ideas: {currProfileUser.upvotes.length}</p> : <p>Upvoted Ideas : 0</p>   }
                                     {/* <p>Upvoted ideas : 10</p> */}
                                 </div>
                                 <div class="col-md-12">
-                                {currUser.saved ?  <p>Saved Ideas: {currUser.saved.length}</p> : <p>Saved Ideas : 0</p>   }
-                                    {/* <p>Saved Ideas : {currUser.saved.length}</p>                                */}
+                                {currProfileUser.saved ?  <p>Saved Ideas: {currProfileUser.saved.length}</p> : <p>Saved Ideas : 0</p>   }
+                                    {/* <p>Saved Ideas : {currProfileUser.saved.length}</p>                                */}
                                     {/* <p>Saved Ideas : 12</p> */}
                                 </div>
                                
@@ -285,12 +301,12 @@ const Profile = ()=>{
                     
                 </div>
             </div>
-            <div className="container" id="button-container">
+            {sameUser && <div className="container" id="button-container">
                 <button class="btn btn-primary profile-button" type="button" onClick={handle_upvoted_ideas}>Upvoted Ideas</button>
                 <button class="btn btn-primary profile-button" type="button" onClick={handle_saved_ideas}>Saved Ideas</button>
                 <button class="btn btn-primary profile-button" type="button" onClick={handle_uploaded_ideas}>Uploaded Ideas</button>
 
-            </div>
+            </div>}
             <div className="container" id="home">
                 {/* <PopularPosts></PopularPosts> */}
                 {/* <Category></Category> */}
