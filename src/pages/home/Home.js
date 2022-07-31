@@ -1,7 +1,7 @@
 // this is home page for the solve it 
 // in this i will be showing the ideas recently posted 
 
-import React from "react";
+import React, { useId } from "react";
 import Navigation from "../../components/Navigation";
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
 // import TrendingCard from "../../components/TrendingCard";
@@ -36,6 +36,7 @@ const Home = ()=>{
     console.log("this is home page");
     const [posts, setposts] = useState([]);
     const [username, setUsername] = useState("");
+    const [userID, setUserID] = useState("");
 
     // const finalImgList = useSelector((state) => state.imgUrlReducer.imgList);
     // console.log("The list of ")
@@ -57,7 +58,9 @@ const Home = ()=>{
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
+            let user_id = response.data.curr_user._id;
             setUsername(user_name);
+            setUserID(user_id);
             dispatch(userNameAction(user_name));
 
 		}
@@ -68,7 +71,7 @@ const Home = ()=>{
     }
 
 
-    
+
     useEffect(() => {
 
 		// WE HAVE TO MAKE THE AXIOS POST REQUEST 
@@ -98,7 +101,7 @@ const Home = ()=>{
             </div>
           
             <div className="container" id="home">
-                <PopularPosts></PopularPosts>
+                <PopularPosts username = {username} userID = {userID} identifier = {1}></PopularPosts>
                 <Category></Category>
 
             </div>
