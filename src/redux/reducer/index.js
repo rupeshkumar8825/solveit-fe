@@ -7,6 +7,7 @@ import ideaReducer from "./ideaReducer";
 import usersReducer from "./usersReducer";
 import upvotedListReducer from "./upvotedListReducer";
 import userUpvotedListReducer from "./userUpvotedListReducer";
+import userSavedListReducer from "./userSavedListReducer";
 
 export default combineReducers({
     IsLoggedInReducer,
@@ -15,7 +16,8 @@ export default combineReducers({
     ideaReducer, 
     usersReducer,
     upvotedListReducer,
-    userUpvotedListReducer
+    userUpvotedListReducer,
+    userSavedListReducer
     
 });
 

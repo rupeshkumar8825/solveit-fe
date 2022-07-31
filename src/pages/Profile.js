@@ -9,6 +9,7 @@ import { userNameAction } from "../redux/action/userNameAction";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "../css/Home.css"
+import { userUpvotedListAction } from "../redux/action/userUpvotedListAction";
 const container1 = {
     "marginTop" : "10%",
     "width" : "50%"
@@ -28,10 +29,26 @@ const Profile = ()=>{
     const [username, setUsername] = useState("");
     const [userID, setuserID] = useState("");
     const dispatch = useDispatch();
+    const userUpvotedList = useSelector((state) => state.userUpvotedListReducer.userUpvotedList);
+
     // console.log("The user name is ", username);
     // console.log("The  userID is ", userID);
     // console.log
 
+
+    const handle_upvoted_ideas = ()=>{
+        console.log("The user wants to see the details about the upvoted ideas\n");
+        console.log("The list of user upvoted list is as follows\n");
+        console.log(userUpvotedList);
+        return;
+    }
+
+    const handle_saved_ideas = ()=>{
+        console.log("The user wants to see the details about the saved ideas\n");
+
+        // SAY EVERYTHING WENT FINE 
+        return;
+    }
     // DEFINING THE GET AUTHENTICATION FUNCTION TO AUTHENTICATE AND AT THE SAME TIME TO FETCH ALL USERS AND IDEAS AND STORE IT IN THE REDUX STORE 
     const getAuthentication = async ()=>{
         const url = "http://127.0.0.1:8000/";
@@ -80,6 +97,7 @@ const Profile = ()=>{
         const response = await axios.get(URL, headers);
         console.log("The response and details of the user is as follows\n");
         console.log(response.data);
+        dispatch(userUpvotedListAction(response.data.upvotedIdeaList));
         
 
     }
