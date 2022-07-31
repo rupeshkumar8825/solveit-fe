@@ -28,7 +28,9 @@ const Profile = ()=>{
     const [username, setUsername] = useState("");
     const [userID, setuserID] = useState("");
     const dispatch = useDispatch();
-    console.log("The user name is ", username);
+    // console.log("The user name is ", username);
+    // console.log("The  userID is ", userID);
+    // console.log
 
     // DEFINING THE GET AUTHENTICATION FUNCTION TO AUTHENTICATE AND AT THE SAME TIME TO FETCH ALL USERS AND IDEAS AND STORE IT IN THE REDUX STORE 
     const getAuthentication = async ()=>{
@@ -41,13 +43,16 @@ const Profile = ()=>{
         }
         
 		const response = await axios.get(url, headers);
+
 		if(response.data.status == 200)
 		{
             let user_name = response.data.curr_user.username;
             console.log(response.data);
+            
             setUsername(user_name);
             setuserID(response.data.curr_user._id);
             dispatch(userNameAction(user_name));
+            // console.log("the userID is  ", userID);
 
 		}
 		else if(response.data.status == 401)
@@ -58,21 +63,39 @@ const Profile = ()=>{
 
 
     // DEFINING THE FUNCTION TO FETCH THE DETAILS OF THE CURRENT SIGNED IN USER 
-    const fetchUsersDetails = ()=>{
+    const fetchUsersDetails = async ()=>{
         // WE HAVE TO MAKE THE POST REQUEST THE SERVER TO GET THE DETAILS OF THE USER CURRENTLY SINGNED AND THEN WE WILL DISPLAY THE DETAILS TO THE FINAL USER FOR THIS PURPOSE 
         console.log("The user id whose info we want is as follows\n");
         console.log(userID);
+
+        // const URL = 
+        const URL = `http://127.0.0.1:8000/user/${userID}`;
+        const headers = {
+            'Content-Type' : 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "withCredentials": true
+            
+        }
+
+        const response = await axios.get(URL, headers);
+        console.log("The response and details of the user is as follows\n");
+        console.log(response.data);
+        
 
     }
     // WE HAVE TO CALL THE USEEFFECT AND GET THE DETAILS OF THE USERS FOR THIS PURPOSE 
     useEffect(() => {
         getAuthentication();
         let timeID = null;
-        timeID = setTimeout(() => {
-            console.log("came inside the useeffect if else statement for this purpose\n");
-            console.log("called the fetchUsersDetails function ");
-            fetchUsersDetails()
-        }, 2000);
+        if(userID)
+        {
+            // timeID = setTimeout(() => {
+                // console.log("came inside the useeffect if else statement for this purpose\n");
+                // console.log("called the fetchUsersDetails function ");
+                fetchUsersDetails()
+            // }, 3000);
+
+        }
 
         return ()=>{
             clearTimeout(timeID);
@@ -83,7 +106,7 @@ const Profile = ()=>{
 
         // }
         
-    }, []);
+    }, [userID, username]);
     return(
         <>
         
@@ -121,7 +144,9 @@ const Profile = ()=>{
                                 <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""/></div>
                                 <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"/></div>
                             </div>
-                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                            <div class="mt-5 text-center">
+                                <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+                                </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -140,7 +165,11 @@ const Profile = ()=>{
                     </div>
                 </div>
             </div>
+            <div className="container" id="button-container">
+                <button class="btn btn-primary profile-button" type="button" onClick={handle_upvoted_ideas}>Upvoted Ideas</button>
+                <button class="btn btn-primary profile-button" type="button" onClick={handle_saved_ideas}>Saved Ideas</button>
 
+            </div>
             <div className="container" id="home">
                 {/* <PopularPosts></PopularPosts> */}
                 {/* <Category></Category> */}
