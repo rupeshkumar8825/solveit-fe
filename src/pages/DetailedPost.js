@@ -84,7 +84,7 @@ const DetailedPost = ()=>{
                     </div>
                     <div className="container">
                        
-                        <p>{(postsList[id].description).substring(1, 700)}</p>
+                        <p>{(postsList[id].description)}</p>
 
 
                     </div>
