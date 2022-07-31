@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userNameAction } from "../redux/action/userNameAction";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 // import Navigation
 // import { Link } from 'react-router-dom';
 const textcolor = {
@@ -17,11 +19,25 @@ const textcolor = {
 const  Navigation = (props)=>{
     console.log("this is navigation menu ");
     const user_name = useSelector((state) => state.userNameReducer.username);
+    const usersList = useSelector((state) => state.usersReducer.usersList);
+    console.log("The list of users is from navigation is as follows\n", usersList);
+    console.log("The user is as follows", user_name);
+    const [userID, setUserID] = useState("");
+
     // let user_name = useSelector((state) => state.userNameReducer.username);
     // console.log("the current user is", user_name);
     const dispatch = useDispatch();
     const nav = useNavigate();
 
+    useEffect(() => {
+        usersList.forEach(element => {
+            if(element.username == user_name)
+            {
+                setUserID(element._id)
+            }
+        });
+        
+    }, [usersList]);
     // let user_name = props.user_name;
 
     // DEFINING THE LOGOUT HANDLER FOR THIS PURPOSE 
@@ -63,7 +79,7 @@ const  Navigation = (props)=>{
                     {/* <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending</Nav.Link> */}
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorns</Nav.Link>
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Idea</Nav.Link>
-                    {user_name? <Nav.Link className = "ml-5 "  style={textcolor} href="/profile">{user_name}</Nav.Link> : <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Signup</Nav.Link> 
+                    {user_name? <Nav.Link className = "ml-5 "  style={textcolor} href={`/profile/${userID}`}>{user_name} </Nav.Link> : <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Signup</Nav.Link> 
                     }
                     {user_name && <Nav.Link className = "ml-5 "  style={textcolor} onClick = {handle_on_logout} >Logout</Nav.Link>} 
                     

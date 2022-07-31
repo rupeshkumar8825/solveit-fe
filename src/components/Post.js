@@ -14,11 +14,11 @@ const Post = (props)=>{
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const usersList = useSelector((state) => state.usersReducer.usersList);
     const upvotedSavedList = useSelector((state) => state.upvotedListReducer.upvotedList);
-    console.log("The list of upvoted is as follows\n");
-    console.log(upvotedSavedList);
+    // console.log("The list of upvoted is as follows\n");
+    // console.log(upvotedSavedList);
     // console.log("The userslist is as follows \n", usersList);
-    console.log("The list of posts are as follows\n");
-    console.log(postsList);
+    // console.log("The list of posts are as follows\n");
+    // console.log(postsList);
     const [upvotes, setUpvotes] = useState(postsList[props.keys].upvotes);
     // const [saveds, setSaveds] = useState(postsList[props.keys].saved);
     const [alreadyUpvoted, setAlreadyUpvoted] = useState(false);
@@ -156,6 +156,7 @@ const Post = (props)=>{
             ideaID : currIdeaId,
             userID : currUserId
         }
+
         const response = await axios.post(URL, data, headers);
         setAlreadySaved(true);
 
@@ -164,6 +165,22 @@ const Post = (props)=>{
 
 
 
+    }
+
+    const handle_on_profile_click = ()=>{
+        console.log("The list of users are as follows\n")
+        console.log(usersList);
+        console.log("the details of the post being clicked is \n");
+        console.log(postsList[props.keys]);
+
+        if(!userName)
+        {
+            nav('/signin');
+        }
+
+        // THEN WE HAVE TO SEND THIS TO THE PROFILE SECTION FOR THIS PURPOSE 
+        nav(`/profile/${postsList[props.keys].userId}`)
+        // console.log("The usename is ", userName);
     }
 
     // USING THE USEEFFECT TO CHECK WHETHER THIS POST IS ALREADY UPVOTED OR NOT 
@@ -236,7 +253,7 @@ const Post = (props)=>{
         return (
             <>
                 <div className="card">
-                    <div className="container" id="profile">
+                    <div className="container" id="profile" onClick={handle_on_profile_click}>
                         <div className="container">
                             
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">

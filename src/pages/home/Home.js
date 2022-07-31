@@ -84,7 +84,7 @@ const Home = ()=>{
     return (
         <>
             <Navigation></Navigation>
-            <div className="container">
+            {/* <div className="container">
                 <div className="trendingHeading">
                     <h4>Trending Ideas</h4>
 
@@ -98,7 +98,7 @@ const Home = ()=>{
                     
                 </div>
 
-            </div>
+            </div> */}
           
             <div className="container" id="home">
                 <PopularPosts username = {username} userID = {userID} identifier = {1}></PopularPosts>

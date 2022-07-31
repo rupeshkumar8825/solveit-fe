@@ -9,13 +9,14 @@ import { userNameAction } from "../redux/action/userNameAction";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "../css/Home.css"
-import ProfilePosts from "../components/ProfilePost";
+// import ProfilePosts from "../components/ProfilePost";
 
 import { userUpvotedListAction } from "../redux/action/userUpvotedListAction";
 import { userSavedListAction } from "../redux/action/userSavedListAction";
 import { usersAction } from "../redux/action/usersAction";
 import { ideasAction } from "../redux/action/ideasAction";
 import PopularPosts from "./home/PopularPosts";
+import { useParams } from "react-router-dom";
 
 
 
@@ -34,10 +35,11 @@ const style1 = {
 
 // DEFINING THE COMPONENT FOR THIS PURPOSE 
 const Profile = ()=>{
-    
+    const {id} = useParams();
+    console.log("The requested profile id is ", id);
     // const userName = useSelector((state) => state.userNameReducer.username);
     const [username, setUsername] = useState("");
-    const [userID, setuserID] = useState("");
+    const [userID, setuserID] = useState(id);
     // const [firstname, setFirstname] = useState("");
     // const [lastname, setLastname] = useState("");
     // const [phone, setPhone] = useState("");
@@ -50,6 +52,7 @@ const Profile = ()=>{
     const [uploadedPost, setUploadedPost] = useState(false);
     const [posts, setPosts] = useState([]);
     const [currUser, setCurrUser] = useState("");
+    // connst 
 
     const dispatch = useDispatch();
     const userUpvotedList = useSelector((state) => state.userUpvotedListReducer.userUpvotedList);
@@ -65,24 +68,24 @@ const Profile = ()=>{
 
 
     const handle_upvoted_ideas = ()=>{
-        console.log("The user wants to see the details about the upvoted ideas\n");
-        console.log("The list of user upvoted list is as follows\n");
-        console.log(userUpvotedList);
+        // console.log("The user wants to see the details about the upvoted ideas\n");
+        // console.log("The list of user upvoted list is as follows\n");
+        // console.log(userUpvotedList);
         setUpvotedPost(true);
         setSavedPost(false);
         setUploadedPost(false);
-        console.log("The list of posts is as follows\n", postsList);
+        // console.log("The list of posts is as follows\n", postsList);
         return;
     }
 
     const handle_saved_ideas = ()=>{
-        console.log("The user wants to see the details about the saved ideas\n");
-        console.log("The list of the user saved ideas is as follows\n");
-        console.log(userSavedList);
+        // console.log("The user wants to see the details about the saved ideas\n");
+        // console.log("The list of the user saved ideas is as follows\n");
+        // console.log(userSavedList);
         setSavedPost(true);
         setUpvotedPost(false);
         setUploadedPost(false);
-        console.log("The list of posts is as follows\n", postsList);
+        // console.log("The list of posts is as follows\n", postsList);
 
         // SAY EVERYTHING WENT FINE 
         return;
@@ -116,9 +119,17 @@ const Profile = ()=>{
             console.log(response.data);
             
             setUsername(user_name);
-            setuserID(response.data.curr_user._id);
+            // setuserID(response.data.curr_user._id);
             // console.log("The userid of the current user is ", userID);
-            setCurrUser(response.data.curr_user);
+            // setCurrUser(response.data.curr_user);
+            usersList.forEach(element => {
+                if(element._id === userID)
+                {
+                    setCurrUser(element);
+                }
+            });
+
+            // WE HAVE TO SET THE CURRUSER AS SOMETHING ELSE 
             // console.log("The current user is as follows \n");
             // console.log(currUser);
             dispatch(userNameAction(user_name));
@@ -140,6 +151,7 @@ const Profile = ()=>{
         console.log("The user id whose info we want is as follows\n");
         console.log(userID);
 
+
         // const URL = 
         const URL = `http://127.0.0.1:8000/user/${userID}`;
         const headers = {
@@ -154,7 +166,7 @@ const Profile = ()=>{
         console.log(response.data);
         dispatch(userUpvotedListAction(response.data.upvotedIdeaList));
         dispatch(userSavedListAction(response.data.savedIdeaList));
-        console.log("The list of posts is as follows\n", postsList);
+        // console.log("The list of posts is as follows\n", postsList);
         
 
     }
