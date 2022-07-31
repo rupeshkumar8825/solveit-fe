@@ -40,6 +40,7 @@ const Profile = ()=>{
     const [userID, setuserID] = useState("");
     const [upvotedPost, setUpvotedPost] = useState(true);
     const [savedPost, setSavedPost] = useState(false);
+    const [uploadedPost, setUploadedPost] = useState(false);
     const [posts, setPosts] = useState([]);
     const [currUser, setCurrUser] = useState();
 
@@ -62,6 +63,7 @@ const Profile = ()=>{
         console.log(userUpvotedList);
         setUpvotedPost(true);
         setSavedPost(false);
+        setUploadedPost(false);
         console.log("The list of posts is as follows\n", postsList);
         return;
     }
@@ -72,12 +74,22 @@ const Profile = ()=>{
         console.log(userSavedList);
         setSavedPost(true);
         setUpvotedPost(false);
+        setUploadedPost(false);
         console.log("The list of posts is as follows\n", postsList);
 
         // SAY EVERYTHING WENT FINE 
         return;
     }
 
+
+    const handle_uploaded_ideas = ()=>{
+        setUploadedPost(true);
+        setSavedPost(false);
+        setUpvotedPost(false);
+
+        // SAY EVERYTHING WENT FINE 
+        return;
+    }
   
     // DEFINING THE GET AUTHENTICATION FUNCTION TO AUTHENTICATE AND AT THE SAME TIME TO FETCH ALL USERS AND IDEAS AND STORE IT IN THE REDUX STORE 
     const getAuthentication = async ()=>{
@@ -254,6 +266,7 @@ const Profile = ()=>{
             <div className="container" id="button-container">
                 <button class="btn btn-primary profile-button" type="button" onClick={handle_upvoted_ideas}>Upvoted Ideas</button>
                 <button class="btn btn-primary profile-button" type="button" onClick={handle_saved_ideas}>Saved Ideas</button>
+                <button class="btn btn-primary profile-button" type="button" onClick={handle_uploaded_ideas}>Uploaded Ideas</button>
 
             </div>
             <div className="container" id="home">
@@ -261,6 +274,7 @@ const Profile = ()=>{
                 {/* <Category></Category> */}
                {upvotedPost &&  <PopularPosts username = {username} userID = {userID} identifier = {2}></PopularPosts>}
                {savedPost &&  <PopularPosts username = {username} userID = {userID} identifier = {3}></PopularPosts>}
+               {uploadedPost &&  <PopularPosts username = {username} userID = {userID} identifier = {4}></PopularPosts>}
                 {/* {upvotedPost && <h1>this is something to have a check of the profile page for this purpose</h1>} */}
             
 
