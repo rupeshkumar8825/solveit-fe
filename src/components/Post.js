@@ -14,11 +14,7 @@ const Post = (props)=>{
     const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const usersList = useSelector((state) => state.usersReducer.usersList);
     const upvotedSavedList = useSelector((state) => state.upvotedListReducer.upvotedList);
-    // console.log("The list of upvoted is as follows\n");
-    // console.log(upvotedSavedList);
-    // console.log("The userslist is as follows \n", usersList);
-    // console.log("The list of posts are as follows\n");
-    // console.log(postsList);
+    
     const [upvotes, setUpvotes] = useState(postsList[props.keys].upvotes);
     // const [saveds, setSaveds] = useState(postsList[props.keys].saved);
     const [alreadyUpvoted, setAlreadyUpvoted] = useState(false);
@@ -253,8 +249,8 @@ const Post = (props)=>{
         return (
             <>
                 <div className="card">
-                    <div className="container" id="profile" onClick={handle_on_profile_click}>
-                        <div className="container">
+                    <div className="container" id="profile" >
+                        <div className="container" onClick={handle_on_profile_click}>
                             
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>

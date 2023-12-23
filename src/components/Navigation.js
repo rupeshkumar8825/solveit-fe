@@ -77,7 +77,7 @@ const  Navigation = (props)=>{
                     <Nav className="me-auto" >
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/">Home</Nav.Link>
                     {/* <Nav.Link className = "ml-5 "  style={textcolor}  href="/trending">Trending</Nav.Link> */}
-                    <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorns</Nav.Link>
+                    {/* <Nav.Link className = "ml-5 "  style={textcolor} href="/unicorn">Unicorns</Nav.Link> */}
                     <Nav.Link className = "ml-5 "  style={textcolor} href="/upload">Upload Idea</Nav.Link>
                     {user_name? <Nav.Link className = "ml-5 "  style={textcolor} href={`/profile/${userID}`}>{user_name} </Nav.Link> : <Nav.Link className = "ml-5 "  style={textcolor} href="/signin">Signin/Signup</Nav.Link> 
                     }

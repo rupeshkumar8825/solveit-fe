@@ -16,26 +16,37 @@ import { useState } from "react";
 const style = {
     "width" : "70%"
 }
+
 const DetailedPost = ()=>{
     const {id} = useParams();
     console.log("The requested post id is ", id);
-    // const [postsList, setPosts] = useState([]);
-    // const [Ideas, setIdeas] = useState([]);
-    // const [Users, setUsers] = useState([]);
-    
-    // const [ideaName, setIdeaName] = useState("");
-    // const 
+    const userName = useSelector((state) => state.userNameReducer.username);
+    const usersList = useSelector((state) => state.usersReducer.usersList);
+    const postsList = useSelector((state) => state.postDetailsReducer.postsList); 
     const dispatch = useDispatch();
 
     // const [user, setUser] = useState("");
 
-    const userName = useSelector((state) => state.userNameReducer.username);
     console.log("The current user name is as follows \n", userName);
     // I HAVE TO FETCH ALL THE LIST OF THE POSTS BEING STORED IN THE STORE FOR THIS PURPOSE 
-    const postsList = useSelector((state) => state.postDetailsReducer.postsList);
     const nav = useNavigate();
 
 
+    // const handle_on_profile_click = ()=>{
+    //     console.log("The list of users are as follows\n")
+    //     console.log(usersList);
+    //     console.log("the details of the post being clicked is \n");
+    //     console.log(postsList[props.keys]);
+
+    //     if(!userName)
+    //     {
+    //         nav('/signin');
+    //     }
+
+    //     // THEN WE HAVE TO SEND THIS TO THE PROFILE SECTION FOR THIS PURPOSE 
+    //     nav(`/profile/${postsList[props.keys].userId}`)
+    //     // console.log("The usename is ", userName);
+    // }
 
    
     // DEFINING THE USE EFFECT FOR THIS PURPOSE 

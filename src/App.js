@@ -33,10 +33,7 @@ import Profile from "./pages/Profile";
 
 
 function App() {
-	// const navigate =  useNavigate();
-	// const isLoggedin = useSelector((state)=> state.isLoggedInReducer);
-    // const isLoggedIn = useSelector((state) => state.IsLoggedInReducer.isLoggedIn)
-	// console.log(isLoggedIn)
+	
     const [posts, setposts] = useState([]);
 	const dispatch = useDispatch();
 
@@ -172,15 +169,14 @@ function App() {
 			
         });
         
-        // console.log("The list of urls of images that we got is as follows\n");
-        // console.log(postsListDetails);
+        
         dispatch(postsDetailsAction(postsListDetails));
-        // console.log("The response from the backend to the home page is as follows\n");
-        // console.log(response.data);
+        
 		
 		// SAY EVERYTHING WENT FINE 
 		return;
 	}
+
 
 
 	// DEFINING THE ROUTE TO GET THE LIST OF THE UPVOTED IDEAS ID CORRESPONDING TO EACH OF THE USERS 
@@ -210,31 +206,7 @@ function App() {
 		fetchDetails();	
 		fetchUpvotedSavedList();
 	}, []);
-		// useEffect(async () => {
-			// 	// WE HAVE TO MAKE THE AXIOS POST REQUEST 
-			// 	const URL = "http://localhost:8080/";
-			//     const headers = {
-				//         'Content-Type' : 'application/json',
-    //         "Access-Control-Allow-Origin" : "*"
-    //     }
-	// 	const response = await axios.post(URL, headers);
-	// 	console.log(response)
-	// 	if(response.data.status == 200)
-	// 	{
-		// 		// THIS MEANS THAT USER IS ALREADY LOGGED IN 
-		// 		console.log("The user is already loggedin\n");
-	// 	}
-	// 	else if(response.data.status == 401)
-	// 	{
-	// 		// THEN THE USER IS NOT AUTHENTICATED HENCE WE HAVE TO SEND IT TO THE SIGN IN PAGE 
-	// 		// navigate('/signin');
-	// 		console.log("The request status if ", 401);
-	// 		// <Navigate to="/signin"/>
-	// 		// browserHistory.push("/signin")
-
-	// 	}
-		
-	// }, []);
+	
 
 	return (
 		<>
