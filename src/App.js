@@ -19,11 +19,6 @@ import { ideasAction } from "./redux/action/ideasAction";
 import { postsDetailsAction } from "./redux/action/postsDetailsAction";
 import { usersAction } from "./redux/action/usersAction";
 
-// import { useDispatch } from "react-redux";
-
-// import browserHistory
-// import { browserHistory } from 'react-router';
-
 
 import Navigation from "./components/Navigation";
 import DetailedPost from "./pages/DetailedPost";
